@@ -1,4 +1,12 @@
-<div class="container-fluid">
+<!-- Loader -->
+<div class="container-fluid" ng-show="!player">
+	<div class="col-md-12">
+		<p>Loading...</p>
+	</div>
+</div>
+
+<!-- Main Content -->
+<div class="container-fluid" ng-show="player">
 	<!-- Header -->
 	<div class="row">
 		<div class="col-md-6 text-left">

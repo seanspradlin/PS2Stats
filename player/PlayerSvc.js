@@ -1,9 +1,11 @@
 (function() {
 	var PlayerSvc = function($http, BaseSvc) {
+
+		//Returns basic player profile data
 		var getPlayer = function(name) {
 			name = typeof name !== 'undefined' ? name : 'higby';
 			name = name.replace(/\s+/g, '').toLowerCase();
-			return $http.jsonp(BaseSvc.urlBuilder.build('character',[
+			return $http.jsonp(BaseSvc.urlBuilder('character',[
 				'name.first_lower=' + name,
 				'c:join=faction^on:faction_id^inject_at:faction',
 				'c:lang=en',
@@ -16,8 +18,10 @@
 				return response.data.character_list[0];
 			});
 		};
+
+		//Gets specific player stats, stats separated by comma, ie. 'kills,deaths'
 		var getPlayerStat = function(playerID, stat) {
-			return $http.jsonp(BaseSvc.urlBuilder.build('characters_stat', [
+			return $http.jsonp(BaseSvc.urlBuilder('characters_stat', [
 				'character_id=' + playerID,
 				'stat_name=' + stat,
 				'c:limit=20',
@@ -27,8 +31,9 @@
 				return response.data.characters_stat_list[0];
 			});
 		};
+		//Gets faction-specific player stats, stats separated by comma, ie. 'kills,deaths'
 		var getPlayerStatByFaction = function(playerID, stat) {
-			return $http.jsonp(BaseSvc.urlBuilder.build('characters_stat_by_faction', [
+			return $http.jsonp(BaseSvc.urlBuilder('characters_stat_by_faction', [
 				'character_id=' + playerID,
 				'stat_name=' + stat,
 				'c:limit=20',
@@ -38,8 +43,9 @@
 				return response.data.characters_stat_by_faction_list[0];
 			});
 		};
+		//Gets timeline of specific player stats, stats separated by comma, ie. 'kills,deaths'
 		var getPlayerStatHistory = function(playerID, stat) {
-			return $http.jsonp(BaseSvc.urlBuilder.build('characters_stat_history', [
+			return $http.jsonp(BaseSvc.urlBuilder('characters_stat_history', [
 				'character_id=' + playerID,
 				'stat_name=' + stat,
 				'c:limit=20',

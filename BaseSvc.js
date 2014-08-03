@@ -1,31 +1,35 @@
 (function() {
 	var BaseSvc = function() {
+
+		//Return an array of integers
 		var range = function(low, high) {
-			array = [];
+			var array = [];
 			for (var i = low; i <= high; i++) {
 				array.push(i);
-			};
+			}
 			return array;
 		};
 
-		var urlBuilder = {
-			root: 'https://census.soe.com/s:responsiveps2/get/ps2:v2/',
-			suffix: '?callback=JSON_CALLBACK',
-			language: function (language) {
-				return 'c:lang=' + language;
-			},
-			build: function (collection, schema) {
-				collection = typeof collection !== 'undefined' ? collection : '';
-				schema = typeof schema !== 'undefined' ? schema : [];
-				var url = this.root + collection + this.suffix;
-				schema.forEach(function(element) {
-					url += '&&' + element;
-				});
-				console.log(url);
-				return url;
-			}
+		var root = 'https://census.soe.com/s:responsiveps2/get/ps2:v2/';
+		var suffix = '?callback=JSON_CALLBACK';
+		//Build an API GET Request
+		var urlBuilder = function (collection, schema) {
+			collection = typeof collection !== 'undefined' ? collection : '';
+			schema = typeof schema !== 'undefined' ? schema : [];
+			var url = root + collection + suffix;
+			schema.forEach(function(element) {
+				url += '&&' + element;
+			});
+			console.log(url);
+			return url;
 		};
 
+		//Builds a google chart
+		//columns: an array with column object details, eg. {id: "day-id", label: "Day", type: "string" }
+		//rows: populate rows with data, use dataBuilder function
+		//chartOptions: object with chart options, eg. title vAxis.title, hAxis.title
+		//chartType (optional): string of the chartType, defaults to LineChart
+		//chartFormatters (optional): object of chart formatters, defaults to empty
 		var chartBuilder = function(columns, rows, chartOptions, chartType, chartFormatters) {
 			chartFormatters = typeof chartFormatters !== 'undefined' ? chartFormatters : {};
 			chartType = typeof chartType !== 'undefined' ? chartType : 'LineChart';
@@ -41,11 +45,16 @@
 			return month;
 		};
 
+		//Build row data for chartBuilder
+		//columns: array of values to label the columns
+		//dataArray: array of data objects to iterate through
 		var dataBuilder = function(columns, dataArray) {
 			var convertJsonToArray = function (data) {
 				var result = [];
 				for(var i in data) {
-					result.push(data[i]);
+					if (data.hasOwnProperty(i)) {
+						result.push(data[i]);
+					}
 				}
 				return result;
 			};

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="PS2Info"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Planetside 2 Information</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="angular/angular.min.js"></script>
+	<script src="angular/angular-route.min.js"></script>
+	<script src="angular/angular-bootstrap.min.js"></script>
+	<script src="angular/ng-google-chart.js"></script>
+	<script src="app.js"></script>
+	<script src="BaseSvc.js"></script>
+	<script src="main/MainCtrl.js"></script>
+	<script src="main/MainSvc.js"></script>
+	<script src="player/PlayerCtrl.js"></script>
+	<script src="player/PlayerSvc.js"></script>
+	<script src="class/ClassCtrl.js"></script>
+	<script src="class/ClassSvc.js"></script>
+	<script src="implant/ImplantCtrl.js"></script>
+	<script src="implant/ImplantSvc.js"></script>
+	<script src="weapon/WeaponCtrl.js"></script>
+	<script src="weapon/WeaponSvc.js"></script>
+	<script src="vehicle/VehicleCtrl.js"></script>
+	<script src="vehicle/VehicleSvc.js"></script>
+</head>
+<body>
+	<!--Nav Bar-->
+	<nav class="navbar navbar-default" ng-controller="BaseCtrl">
+		<div class="container-fluid">
+			<div class="navbar-header navbar-right">
+				<button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand">Planetside 2</a>
+			</div>
+
+			<div id="navbar-links" class="collapse navbar-collapse navbar-left" collapse="!isCollapsed">
+				<ul class="nav navbar-nav">
+					<li><a href="#/class">Classes</a></li>
+					<li><a href="#/weapon">Weapons</a></li>
+					<li><a href="#/implant">Implants</a></li>
+					<li><a href="#/vehicle">Vehicles</a></li>
+					<li><a href="#/player">Players</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!--Main Content-->
+	<div class="container-fluid">
+
+		<div ng-view></div>
+	</div>
+
+	<!--Footer-->
+	<footer class="container-fluid">
+		<hr>
+		<p class="info">Sean Spradlin, 2014</p>
+	</footer>
+</body>
+</html>

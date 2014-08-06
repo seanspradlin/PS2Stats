@@ -58,22 +58,60 @@
 						"hAxis": { "title": "Week" }
 					});
 			}, onError);
-		};
+};
 
 		//Execute KDR Tab click
 		$scope.kdrLoad = function() {
-			//TODO Check if kills/deaths stats have been loaded
-			$scope.kdrDay = BaseSvc.chartBuilder(
-				[
-				{ id: 'day-id', label: 'Day', type: 'string' },
-				{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
-				],
-				BaseSvc.dataBuilder(BaseSvc.range(1,30),[BaseSvc.mergeDataObjects($scope.history.kills.day, $scope.history.deaths.day, 'division')]),
-				{
-					'title' : 'Kill/Death Ratio Per Day',
-					'vAxis' : { 'title' : 'Ratio' },
-					'hAxis' : { 'title' : 'Day' }
-				});
+
+			//Define charts
+			var createCharts = function() {
+				$scope.kdrDay = BaseSvc.chartBuilder(
+					[
+					{ id: 'day-id', label: 'Day', type: 'string' },
+					{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
+					],
+					BaseSvc.dataBuilder(BaseSvc.range(1,30),[BaseSvc.mergeDataObjects($scope.history.kills.day, $scope.history.deaths.day, 'division')]),
+					{
+						'title' : 'Kill/Death Ratio Per Day',
+						'vAxis' : { 'title' : 'Ratio' },
+						'hAxis' : { 'title' : 'Day' }
+					});
+
+				$scope.kdrWeek = BaseSvc.chartBuilder(
+					[
+					{ id: 'week-id', label: 'Week', type: 'string' },
+					{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
+					],
+					BaseSvc.dataBuilder(BaseSvc.range(1,13),[BaseSvc.mergeDataObjects($scope.history.kills.week, $scope.history.deaths.week, 'division')]),
+					{
+						'title' : 'Kill/Death Ratio Per Week',
+						'vAxis' : { 'title' : 'Ratio' },
+						'hAxis' : { 'title' : 'Week' }
+					});
+
+				$scope.kdrMonth = BaseSvc.chartBuilder(
+					[
+					{ id: 'month-id', label: 'Month', type: 'string' },
+					{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
+					],
+					BaseSvc.dataBuilder(BaseSvc.range(1,13),[BaseSvc.mergeDataObjects($scope.history.kills.month, $scope.history.deaths.month, 'division')]),
+					{
+						'title' : 'Kill/Death Ratio Per Month',
+						'vAxis' : { 'title' : 'Ratio' },
+						'hAxis' : { 'title' : 'Month' }
+					});
+			};
+
+			//Check if kills/deaths data has been loaded, if not, then fetch the data
+			if (typeof $scope.history.kills === 'undefined' || typeof $scope.history.deaths === 'undefined') {
+				PlayerSvc.getPlayerStatHistory($scope.player.character_id,'kills,deaths').then(function(data) {
+					$scope.history = data;
+					createCharts();
+				}, onError);
+			}
+			else {
+				createCharts();
+			}
 		};
 
 		//Execute on Certs Tab click

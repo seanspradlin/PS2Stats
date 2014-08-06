@@ -60,13 +60,29 @@
 			}, onError);
 		};
 
+		//Execute KDR Tab click
+		$scope.kdrLoad = function() {
+			
+		};
+
+		//Execute on Certs Tab click
+		$scope.certsLoad = function() {
+
+		};
+
+		//Execute on Score Per Hour Tab click
+		$scope.sphLoad = function() {
+
+		};
+
+		//Execute on Time Played Tab click
+		$scope.timeLoad = function() {
+
+		};
+
 		//Execute on error
 		var onError = function() {
 			$scope.error = 'Could not fetch the data.';
-		};
-
-		$scope.kdrLoad = function() {
-			
 		};
 
 		PlayerSvc.getPlayer($routeParams.playername).then(onPlayerComplete, onError);

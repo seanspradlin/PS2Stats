@@ -30,20 +30,6 @@
 						"hAxis": { "title": "Day" }
 					});
 
-				//Generate data for kills/deaths by the month
-				$scope.kdMonth = BaseSvc.chartBuilder(
-					[
-					{id: "day-id", label: "Day", type: "string" },
-					{id: "kills-id", label: "Kills", type: "number"},
-					{id: "deaths-id", label: "Deaths", type: "number"}
-					],
-					BaseSvc.dataBuilder(BaseSvc.range(1,12),[$scope.history.kills.month, $scope.history.deaths.month]),
-					{
-						"title": "Kills/Deaths Per Month",
-						"vAxis": { "title": "Score" },
-						"hAxis": { "title": "Month" }
-					});
-
 				//Generate data for kills/deaths by the week
 				$scope.kdWeek = BaseSvc.chartBuilder(
 					[
@@ -57,6 +43,20 @@
 						"vAxis": { "title": "Score" },
 						"hAxis": { "title": "Week" }
 					});
+
+				//Generate data for kills/deaths by the month
+				$scope.kdMonth = BaseSvc.chartBuilder(
+					[
+					{id: "day-id", label: "Day", type: "string" },
+					{id: "kills-id", label: "Kills", type: "number"},
+					{id: "deaths-id", label: "Deaths", type: "number"}
+					],
+					BaseSvc.dataBuilder(BaseSvc.range(1,12),[$scope.history.kills.month, $scope.history.deaths.month]),
+					{
+						"title": "Kills/Deaths Per Month",
+						"vAxis": { "title": "Score" },
+						"hAxis": { "title": "Month" }
+					});
 			}, onError);
 };
 
@@ -65,6 +65,8 @@
 
 			//Define charts
 			var createCharts = function() {
+
+				//Generate data for k/d ratio by the day
 				$scope.kdrDay = BaseSvc.chartBuilder(
 					[
 					{ id: 'day-id', label: 'Day', type: 'string' },
@@ -77,6 +79,7 @@
 						'hAxis' : { 'title' : 'Day' }
 					});
 
+				//Generate data for k/d ratio by the week
 				$scope.kdrWeek = BaseSvc.chartBuilder(
 					[
 					{ id: 'week-id', label: 'Week', type: 'string' },
@@ -89,6 +92,7 @@
 						'hAxis' : { 'title' : 'Week' }
 					});
 
+				//Generate data for k/d ratio by the month
 				$scope.kdrMonth = BaseSvc.chartBuilder(
 					[
 					{ id: 'month-id', label: 'Month', type: 'string' },

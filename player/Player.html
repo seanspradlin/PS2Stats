@@ -47,10 +47,35 @@
 
 	<div class="row">
 		<!-- Stats -->
-		<section class="col-md-12" id="stats">
-			<div google-chart chart="kdDay"></div>
-			<div google-chart chart="kdWeek"></div>
-			<div google-chart chart="kdMonth"></div>
+		<section class="col-md-8" id="stats">
+			<tabset>
+				<!-- Kill/Deaths -->
+				<tab heading="Kills/Deaths" active="true">
+					<div google-chart chart="kdDay"></div>
+					<div google-chart chart="kdWeek"></div>
+					<div google-chart chart="kdMonth"></div>
+				</tab>
+
+				<!-- Kill/Death Ratio -->
+				<tab heading="Kill/Death Ratio" select="kdrLoad()">
+					
+				</tab>
+
+				<!-- Certs -->
+				<tab heading="Certs">
+					
+				</tab>
+
+				<!-- Score Per Hour -->
+				<tab heading="Score Per Hour">
+					
+				</tab>
+
+				<!-- Time Played -->
+				<tab heading="Time Played">
+
+				</tab>
+			</tabset>
 		</section>
 	</div>
 </div>

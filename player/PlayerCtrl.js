@@ -65,6 +65,10 @@
 			$scope.error = 'Could not fetch the data.';
 		};
 
+		$scope.kdrLoad = function() {
+			
+		};
+
 		PlayerSvc.getPlayer($routeParams.playername).then(onPlayerComplete, onError);
 	};
 	app.controller('PlayerCtrl', PlayerCtrl);

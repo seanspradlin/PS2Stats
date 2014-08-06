@@ -62,7 +62,18 @@
 
 		//Execute KDR Tab click
 		$scope.kdrLoad = function() {
-			
+			//TODO Check if kills/deaths stats have been loaded
+			$scope.kdrDay = BaseSvc.chartBuilder(
+				[
+				{ id: 'day-id', label: 'Day', type: 'string' },
+				{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
+				],
+				BaseSvc.dataBuilder(BaseSvc.range(1,30),[BaseSvc.mergeDataObjects($scope.history.kills.day, $scope.history.deaths.day, 'division')]),
+				{
+					'title' : 'Kill/Death Ratio Per Day',
+					'vAxis' : { 'title' : 'Ratio' },
+					'hAxis' : { 'title' : 'Day' }
+				});
 		};
 
 		//Execute on Certs Tab click

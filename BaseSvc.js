@@ -45,6 +45,35 @@
 			return month;
 		};
 
+		//Perform an operation between two repeating objects
+		//data1: first data object
+		//data2: second data object
+		//operation: operation to be performed
+		var mergeDataObjects = function(data1, data2, operation) {
+			//Define types of operations
+			var operations = {
+				'addition' : function(x,y) { return x + y; },
+				'subtraction' : function(x,y) { return x - y; },
+				'division' : function(x,y) { return x / y; },
+				'multiplication' : function(x,y) { return x * y; }
+			};
+
+			//Execute calculation
+			var calculate = function(x, y, operation) { 
+				return operations[operation](x, y);
+			};
+
+			//Generate merged object
+			var result = {};
+			for(var i in data1) {
+				if (data1.hasOwnProperty(i) && data2.hasOwnProperty(i)) {
+					result[i] = calculate(data1[i], data2[i], operation);
+				}
+			}
+			console.log(result);
+			return result;
+		};
+
 		//Build row data for chartBuilder
 		//columns: array of values to label the columns
 		//dataArray: array of data objects to iterate through
@@ -75,7 +104,6 @@
 					c : columnArray
 				});
 			});
-			console.log(array);
 
 			return array;
 		};
@@ -83,6 +111,7 @@
 		return {
 			urlBuilder: urlBuilder,
 			chartBuilder: chartBuilder,
+			mergeDataObjects: mergeDataObjects,
 			dataBuilder: dataBuilder,
 			range: range
 		};

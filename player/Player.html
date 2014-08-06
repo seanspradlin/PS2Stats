@@ -50,7 +50,7 @@
 		<section class="col-md-8" id="stats">
 			<tabset>
 				<!-- Kill/Deaths -->
-				<tab heading="Kills/Deaths" active="true">
+				<tab heading="Kills/Deaths" active="true" select="kdLoad()">
 					<div google-chart chart="kdDay"></div>
 					<div google-chart chart="kdWeek"></div>
 					<div google-chart chart="kdMonth"></div>
@@ -65,7 +65,9 @@
 
 				<!-- Certs -->
 				<tab heading="Certs" select="certsLoad()">
-					
+					<div google-chart chart="certsDay"></div>
+					<div google-chart chart="certsWeek"></div>
+					<div google-chart chart="certsMonth"></div>
 				</tab>
 
 				<!-- Score Per Hour -->

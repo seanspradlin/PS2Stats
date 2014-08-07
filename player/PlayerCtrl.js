@@ -23,7 +23,7 @@
 						//Generate data for kills/deaths by the day
 						$scope.kdDay = BaseSvc.chartBuilder.build(
 							[
-							{id: "day-id", label: "Day", type: "string" },
+							{id: "day-id", label: "Day", type: "number" },
 							{id: "kills-id", label: "Kills", type: "number"},
 							{id: "deaths-id", label: "Deaths", type: "number"}
 							],
@@ -32,12 +32,20 @@
 								"title": "Kills/Deaths Per Day",
 								"vAxis": { "title": "Score" },
 								"hAxis": { "title": "Day" }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Day ##'
+								}]
 							});
 
 						//Generate data for kills/deaths by the week
 						$scope.kdWeek = BaseSvc.chartBuilder.build(
 							[
-							{id: "day-id", label: "Week", type: "string" },
+							{id: "day-id", label: "Week", type: "number" },
 							{id: "kills-id", label: "Kills", type: "number"},
 							{id: "deaths-id", label: "Deaths", type: "number"}
 							],
@@ -46,12 +54,20 @@
 								"title": "Kills/Deaths Per Week",
 								"vAxis": { "title": "Score" },
 								"hAxis": { "title": "Week" }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Week ##'
+								}]
 							});
 
 						//Generate data for kills/deaths by the month
 						$scope.kdMonth = BaseSvc.chartBuilder.build(
 							[
-							{id: "day-id", label: "Day", type: "string" },
+							{id: "day-id", label: "Day", type: "number" },
 							{id: "kills-id", label: "Kills", type: "number"},
 							{id: "deaths-id", label: "Deaths", type: "number"}
 							],
@@ -60,6 +76,14 @@
 								"title": "Kills/Deaths Per Month",
 								"vAxis": { "title": "Score" },
 								"hAxis": { "title": "Month" }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Month ##'
+								}]
 							});
 					};
 
@@ -85,7 +109,7 @@
 						//Generate data for k/d ratio by the day
 						$scope.kdrDay = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'day-id', label: 'Day', type: 'string' },
+							{ id: 'day-id', label: 'Day', type: 'number' },
 							{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.kills.day, $scope.history.deaths.day, 'division')]),
@@ -93,12 +117,20 @@
 								'title' : 'Kill/Death Ratio Per Day',
 								'vAxis' : { 'title' : 'Ratio' },
 								'hAxis' : { 'title' : 'Day' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Day ##'
+								}]
 							});
 
 						//Generate data for k/d ratio by the week
 						$scope.kdrWeek = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'week-id', label: 'Week', type: 'string' },
+							{ id: 'week-id', label: 'Week', type: 'number' },
 							{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.kills.week, $scope.history.deaths.week, 'division')]),
@@ -106,12 +138,20 @@
 								'title' : 'Kill/Death Ratio Per Week',
 								'vAxis' : { 'title' : 'Ratio' },
 								'hAxis' : { 'title' : 'Week' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Week ##'
+								}]
 							});
 
 						//Generate data for k/d ratio by the month
 						$scope.kdrMonth = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'month-id', label: 'Month', type: 'string' },
+							{ id: 'month-id', label: 'Month', type: 'number' },
 							{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.kills.month, $scope.history.deaths.month, 'division')]),
@@ -119,6 +159,14 @@
 								'title' : 'Kill/Death Ratio Per Month',
 								'vAxis' : { 'title' : 'Ratio' },
 								'hAxis' : { 'title' : 'Month' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Month ##'
+								}]
 							});
 					};
 
@@ -143,7 +191,7 @@
 						//Generate data for k/d ratio by the day
 						$scope.certsDay = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'day-id', label: 'Day', type: 'string' },
+							{ id: 'day-id', label: 'Day', type: 'number' },
 							{ id: 'certs-id', label: 'Certs', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[$scope.history.certs.day]),
@@ -151,12 +199,20 @@
 								'title' : 'Certs Per Day',
 								'vAxis' : { 'title' : 'Points' },
 								'hAxis' : { 'title' : 'Day' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Day ##'
+								}]
 							});
 
 						//Generate data for k/d ratio by the week
 						$scope.certsWeek = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'week-id', label: 'Week', type: 'string' },
+							{ id: 'week-id', label: 'Week', type: 'number' },
 							{ id: 'certs-id', label: 'Certs', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[$scope.history.certs.week]),
@@ -164,12 +220,20 @@
 								'title' : 'Certs Per Week',
 								'vAxis' : { 'title' : 'Points' },
 								'hAxis' : { 'title' : 'Week' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Week ##'
+								}]
 							});
 
 						//Generate data for k/d ratio by the month
 						$scope.certsMonth = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'month-id', label: 'Month', type: 'string' },
+							{ id: 'month-id', label: 'Month', type: 'number' },
 							{ id: 'certs-id', label: 'Certs', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[$scope.history.certs.month]),
@@ -177,6 +241,14 @@
 								'title' : 'Certs Per Month',
 								'vAxis' : { 'title' : 'Points' },
 								'hAxis' : { 'title' : 'Month' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Month ##'
+								}]
 							});
 					};
 
@@ -199,7 +271,7 @@
 						//Generate data for k/d ratio by the day
 						$scope.sphDay = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'day-id', label: 'Day', type: 'string' },
+							{ id: 'day-id', label: 'Day', type: 'number' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),
@@ -217,6 +289,10 @@
 							{
 								number : [
 								{
+									columnNum : 0,
+									pattern : 'Day ##'
+								},
+								{
 									columnNum : 1,
 									pattern : '###,###'
 								}
@@ -226,7 +302,7 @@
 						//Generate data for k/d ratio by the week
 						$scope.sphWeek = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'week-id', label: 'Week', type: 'string' },
+							{ id: 'week-id', label: 'Week', type: 'number' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),
@@ -244,6 +320,10 @@
 							{
 								number : [
 								{
+									columnNum : 0,
+									pattern : 'Week ##'
+								},
+								{
 									columnNum : 1,
 									pattern : '###,###'
 								}
@@ -253,7 +333,7 @@
 						//Generate data for k/d ratio by the month
 						$scope.sphMonth = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'month-id', label: 'Month', type: 'string' },
+							{ id: 'month-id', label: 'Month', type: 'number' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),
@@ -270,6 +350,10 @@
 							'LineChart',
 							{
 								number : [
+								{
+									columnNum : 0,
+									pattern : 'Month ##'
+								},
 								{
 									columnNum : 1,
 									pattern : '###,###'
@@ -298,7 +382,7 @@
 						//Generate data for k/d ratio by the day
 						$scope.timeDay = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'day-id', label: 'Day', type: 'string' },
+							{ id: 'day-id', label: 'Day', type: 'number' },
 							{ id: 'time-id', label: 'Hours Played', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[BaseSvc.chartBuilder.calculateDataObject($scope.history.time.day, 3600, 'division')]),
@@ -306,12 +390,25 @@
 								'title' : 'Time Played Per Day',
 								'vAxis' : { 'title' : 'Hours' },
 								'hAxis' : { 'title' : 'Day' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Day ##'
+								},
+								{
+									columnNum : 1,
+									pattern : '###.#'
+								}
+								]
 							});
 
 						//Generate data for k/d ratio by the week
 						$scope.timeWeek = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'week-id', label: 'Week', type: 'string' },
+							{ id: 'week-id', label: 'Week', type: 'number' },
 							{ id: 'time-id', label: 'Hours Played', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[BaseSvc.chartBuilder.calculateDataObject($scope.history.time.week, 3600, 'division')]),
@@ -319,12 +416,25 @@
 								'title' : 'Time Played Per Week',
 								'vAxis' : { 'title' : 'Hours' },
 								'hAxis' : { 'title' : 'Week' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Week ##'
+								},
+								{
+									columnNum : 1,
+									pattern : '###.#'
+								}
+								]
 							});
 
 						//Generate data for k/d ratio by the month
 						$scope.timeMonth = BaseSvc.chartBuilder.build(
 							[
-							{ id: 'month-id', label: 'Month', type: 'string' },
+							{ id: 'month-id', label: 'Month', type: 'number' },
 							{ id: 'time-id', label: 'Hours Played', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[BaseSvc.chartBuilder.calculateDataObject($scope.history.time.month, 3600, 'division')]),
@@ -332,6 +442,19 @@
 								'title' : 'Time Played Per Month',
 								'vAxis' : { 'title' : 'Hours' },
 								'hAxis' : { 'title' : 'Month' }
+							},
+							'LineChart',
+							{
+								number : [
+								{
+									columnNum : 0,
+									pattern : 'Month ##'
+								},
+								{
+									columnNum : 1,
+									pattern : '###.#'
+								}
+								]
 							});
 					};
 

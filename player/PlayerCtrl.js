@@ -21,13 +21,13 @@
 					//Define charts
 					var createCharts = function() {
 						//Generate data for kills/deaths by the day
-						$scope.kdDay = BaseSvc.chartBuilder(
+						$scope.kdDay = BaseSvc.chartBuilder.build(
 							[
 							{id: "day-id", label: "Day", type: "string" },
 							{id: "kills-id", label: "Kills", type: "number"},
 							{id: "deaths-id", label: "Deaths", type: "number"}
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,30),[$scope.history.kills.day, $scope.history.deaths.day]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[$scope.history.kills.day, $scope.history.deaths.day]),
 							{
 								"title": "Kills/Deaths Per Day",
 								"vAxis": { "title": "Score" },
@@ -35,13 +35,13 @@
 							});
 
 						//Generate data for kills/deaths by the week
-						$scope.kdWeek = BaseSvc.chartBuilder(
+						$scope.kdWeek = BaseSvc.chartBuilder.build(
 							[
 							{id: "day-id", label: "Week", type: "string" },
 							{id: "kills-id", label: "Kills", type: "number"},
 							{id: "deaths-id", label: "Deaths", type: "number"}
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,13),[$scope.history.kills.week, $scope.history.deaths.week]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[$scope.history.kills.week, $scope.history.deaths.week]),
 							{
 								"title": "Kills/Deaths Per Week",
 								"vAxis": { "title": "Score" },
@@ -49,13 +49,13 @@
 							});
 
 						//Generate data for kills/deaths by the month
-						$scope.kdMonth = BaseSvc.chartBuilder(
+						$scope.kdMonth = BaseSvc.chartBuilder.build(
 							[
 							{id: "day-id", label: "Day", type: "string" },
 							{id: "kills-id", label: "Kills", type: "number"},
 							{id: "deaths-id", label: "Deaths", type: "number"}
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,12),[$scope.history.kills.month, $scope.history.deaths.month]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[$scope.history.kills.month, $scope.history.deaths.month]),
 							{
 								"title": "Kills/Deaths Per Month",
 								"vAxis": { "title": "Score" },
@@ -83,12 +83,12 @@
 					var createCharts = function() {
 
 						//Generate data for k/d ratio by the day
-						$scope.kdrDay = BaseSvc.chartBuilder(
+						$scope.kdrDay = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'day-id', label: 'Day', type: 'string' },
 							{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,30),[BaseSvc.mergeDataObjects($scope.history.kills.day, $scope.history.deaths.day, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.kills.day, $scope.history.deaths.day, 'division')]),
 							{
 								'title' : 'Kill/Death Ratio Per Day',
 								'vAxis' : { 'title' : 'Ratio' },
@@ -96,12 +96,12 @@
 							});
 
 						//Generate data for k/d ratio by the week
-						$scope.kdrWeek = BaseSvc.chartBuilder(
+						$scope.kdrWeek = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'week-id', label: 'Week', type: 'string' },
 							{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,13),[BaseSvc.mergeDataObjects($scope.history.kills.week, $scope.history.deaths.week, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.kills.week, $scope.history.deaths.week, 'division')]),
 							{
 								'title' : 'Kill/Death Ratio Per Week',
 								'vAxis' : { 'title' : 'Ratio' },
@@ -109,12 +109,12 @@
 							});
 
 						//Generate data for k/d ratio by the month
-						$scope.kdrMonth = BaseSvc.chartBuilder(
+						$scope.kdrMonth = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'month-id', label: 'Month', type: 'string' },
 							{ id: 'kdr-id', label: 'Kills/Death Ratio', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,12),[BaseSvc.mergeDataObjects($scope.history.kills.month, $scope.history.deaths.month, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.kills.month, $scope.history.deaths.month, 'division')]),
 							{
 								'title' : 'Kill/Death Ratio Per Month',
 								'vAxis' : { 'title' : 'Ratio' },
@@ -141,12 +141,12 @@
 					var createCharts = function() {
 
 						//Generate data for k/d ratio by the day
-						$scope.certsDay = BaseSvc.chartBuilder(
+						$scope.certsDay = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'day-id', label: 'Day', type: 'string' },
 							{ id: 'certs-id', label: 'Certs', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,30),[$scope.history.certs.day]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[$scope.history.certs.day]),
 							{
 								'title' : 'Certs Per Day',
 								'vAxis' : { 'title' : 'Points' },
@@ -154,12 +154,12 @@
 							});
 
 						//Generate data for k/d ratio by the week
-						$scope.certsWeek = BaseSvc.chartBuilder(
+						$scope.certsWeek = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'week-id', label: 'Week', type: 'string' },
 							{ id: 'certs-id', label: 'Certs', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,13),[$scope.history.certs.week]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[$scope.history.certs.week]),
 							{
 								'title' : 'Certs Per Week',
 								'vAxis' : { 'title' : 'Points' },
@@ -167,12 +167,12 @@
 							});
 
 						//Generate data for k/d ratio by the month
-						$scope.certsMonth = BaseSvc.chartBuilder(
+						$scope.certsMonth = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'month-id', label: 'Month', type: 'string' },
 							{ id: 'certs-id', label: 'Certs', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,12),[$scope.history.certs.month]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[$scope.history.certs.month]),
 							{
 								'title' : 'Certs Per Month',
 								'vAxis' : { 'title' : 'Points' },
@@ -197,12 +197,12 @@
 					var createCharts = function() {
 
 						//Generate data for k/d ratio by the day
-						$scope.sphDay = BaseSvc.chartBuilder(
+						$scope.sphDay = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'day-id', label: 'Day', type: 'string' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,30),[BaseSvc.mergeDataObjects($scope.history.score.day, $scope.history.time.day, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.day, $scope.history.time.day, 'division')]),
 							{
 								'title' : 'Score/Hour Per Day',
 								'vAxis' : { 'title' : 'Rate' },
@@ -210,12 +210,12 @@
 							});
 
 						//Generate data for k/d ratio by the week
-						$scope.sphWeek = BaseSvc.chartBuilder(
+						$scope.sphWeek = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'week-id', label: 'Week', type: 'string' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,13),[BaseSvc.mergeDataObjects($scope.history.score.week, $scope.history.time.week, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.week, $scope.history.time.week, 'division')]),
 							{
 								'title' : 'Score/Hour Per Week',
 								'vAxis' : { 'title' : 'Rate' },
@@ -223,12 +223,12 @@
 							});
 
 						//Generate data for k/d ratio by the month
-						$scope.sphMonth = BaseSvc.chartBuilder(
+						$scope.sphMonth = BaseSvc.chartBuilder.build(
 							[
 							{ id: 'month-id', label: 'Month', type: 'string' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
-							BaseSvc.dataBuilder(BaseSvc.range(1,12),[BaseSvc.mergeDataObjects($scope.history.score.month, $scope.history.time.month, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.month, $scope.history.time.month, 'division')]),
 							{
 								'title' : 'Score/Hour Per Month',
 								'vAxis' : { 'title' : 'Points' },

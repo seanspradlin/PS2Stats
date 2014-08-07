@@ -75,7 +75,7 @@
 						createCharts();
 					}
 				};
-
+				
 				//Execute KDR Tab click
 				$scope.kdrLoad = function() {
 
@@ -291,17 +291,66 @@
 					}
 				};
 
+				//Execute Time Tab click
+				$scope.timeLoad = function() {
+					//Define charts
+					var createCharts = function() {
+						//Generate data for k/d ratio by the day
+						$scope.timeDay = BaseSvc.chartBuilder.build(
+							[
+							{ id: 'day-id', label: 'Day', type: 'string' },
+							{ id: 'time-id', label: 'Hours Played', type: 'number' }
+							],
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[BaseSvc.chartBuilder.calculateDataObject($scope.history.time.day, 3600, 'division')]),
+							{
+								'title' : 'Time Played Per Day',
+								'vAxis' : { 'title' : 'Hours' },
+								'hAxis' : { 'title' : 'Day' }
+							});
+
+						//Generate data for k/d ratio by the week
+						$scope.timeWeek = BaseSvc.chartBuilder.build(
+							[
+							{ id: 'week-id', label: 'Week', type: 'string' },
+							{ id: 'time-id', label: 'Hours Played', type: 'number' }
+							],
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[BaseSvc.chartBuilder.calculateDataObject($scope.history.time.week, 3600, 'division')]),
+							{
+								'title' : 'Time Played Per Week',
+								'vAxis' : { 'title' : 'Hours' },
+								'hAxis' : { 'title' : 'Week' }
+							});
+
+						//Generate data for k/d ratio by the month
+						$scope.timeMonth = BaseSvc.chartBuilder.build(
+							[
+							{ id: 'month-id', label: 'Month', type: 'string' },
+							{ id: 'time-id', label: 'Hours Played', type: 'number' }
+							],
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[BaseSvc.chartBuilder.calculateDataObject($scope.history.time.month, 3600, 'division')]),
+							{
+								'title' : 'Time Played Per Month',
+								'vAxis' : { 'title' : 'Hours' },
+								'hAxis' : { 'title' : 'Month' }
+							});
+					};
+
+					//Check if kills/deaths data has been loaded, if not, then fetch the data
+					if (typeof $scope.history.time === 'undefined') {
+						PlayerSvc.getPlayerStatHistory($scope.player.character_id,'time').then(function(data) {
+							$scope.history.time = data.time;
+							createCharts();
+						}, onError);
+					}
+					else {
+						createCharts();
+					}
+				};
+
 				//Run kdLoad since it is the active tab on page load
 				$scope.kdLoad();
 			}, onError);
-
-
-			//Execute on Time Played Tab click
-			$scope.timeLoad = function() {
-
-			};
 		};
-
 
 		//Execute on error
 		var onError = function() {

@@ -11,7 +11,7 @@
 			// History
 			PlayerSvc.getPlayerStatHistory($scope.player.character_id,'kills,deaths,time,score').then(function(data) {
 				$scope.history = data;
-				$scope.player.spm = ($scope.history.score.all_time / $scope.history.time.all_time * 60).toFixed(1);
+				$scope.player.sph = BaseSvc.utility.addCommas(($scope.history.score.all_time / $scope.history.time.all_time * 3600).toFixed(0));
 				$scope.player.kdr = ($scope.history.kills.all_time / $scope.history.deaths.all_time).toFixed(2);
 				$scope.player.created = new Date($scope.player.times.creation_date).toDateString();
 

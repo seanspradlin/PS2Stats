@@ -202,12 +202,27 @@
 							{ id: 'day-id', label: 'Day', type: 'string' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
-							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.day, $scope.history.time.day, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),
+								[
+								BaseSvc.chartBuilder.calculateDataObject(
+									BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.day, $scope.history.time.day, 'division'),
+									3600, 'multiplication')
+								]),
 							{
 								'title' : 'Score/Hour Per Day',
 								'vAxis' : { 'title' : 'Rate' },
 								'hAxis' : { 'title' : 'Day' }
-							});
+							},
+							'LineChart',
+							{
+							    number : [
+							      {
+							        columnNum : 1,
+							        pattern : '###,###'
+							      }
+							    ]
+							  }
+							);
 
 						//Generate data for k/d ratio by the week
 						$scope.sphWeek = BaseSvc.chartBuilder.build(
@@ -220,7 +235,16 @@
 								'title' : 'Score/Hour Per Week',
 								'vAxis' : { 'title' : 'Rate' },
 								'hAxis' : { 'title' : 'Week' }
-							});
+							}),
+							'LineChart',
+							{
+							    number : [
+							      {
+							        columnNum : 1,
+							        pattern : '###,###'
+							      }
+							    ]
+							  };
 
 						//Generate data for k/d ratio by the month
 						$scope.sphMonth = BaseSvc.chartBuilder.build(
@@ -233,7 +257,16 @@
 								'title' : 'Score/Hour Per Month',
 								'vAxis' : { 'title' : 'Points' },
 								'hAxis' : { 'title' : 'Month' }
-							});
+							}),
+							'LineChart',
+							{
+							    number : [
+							      {
+							        columnNum : 1,
+							        pattern : '###,###'
+							      }
+							    ]
+							  };
 					};
 
 					//Check if score/time data has been loaded, if not, then fetch the data
@@ -252,13 +285,13 @@
 				//Run kdLoad since it is the active tab on page load
 				$scope.kdLoad();
 			}, onError);
-			
+
 
 			//Execute on Time Played Tab click
 			$scope.timeLoad = function() {
 
 			};
-	};
+		};
 
 
 		//Execute on error

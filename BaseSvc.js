@@ -12,6 +12,20 @@
 				}
 				return array;
 			},
+
+			//Define types of operations
+			operations : {
+				'addition' : function(x, y) { return x + y; },
+				'subtraction' : function(x, y) { return x - y; },
+				'division' : function(x, y) { return x / y; },
+				'multiplication' : function(x, y) { return x * y; }
+			},
+
+			//Execute calculation
+			calculate : function(x, y, operation) {
+				return this.operations[operation](x, y);
+			},
+
 			//Add commas to numbers
 			addCommas : function(nStr)
 			{
@@ -75,27 +89,26 @@
 			//data2: second data object
 			//operation: operation to be performed
 			mergeDataObjects : function(data1, data2, operation) {
-				//Define types of operations
-				var operations = {
-					'addition' : function(x,y) { return x + y; },
-					'subtraction' : function(x,y) { return x - y; },
-					'division' : function(x,y) { return x / y; },
-					'multiplication' : function(x,y) { return x * y; }
-				};
-
-				//Execute calculation
-				var calculate = function(x, y, operation) { 
-					return operations[operation](x, y);
-				};
-
-				//Generate merged object
 				var result = {};
 				for(var i in data1) {
 					if (data1.hasOwnProperty(i) && data2.hasOwnProperty(i)) {
-						result[i] = calculate(data1[i], data2[i], operation);
+						result[i] = utility.calculate(data1[i], data2[i], operation);
 					}
 				}
-				console.log(result);
+				return result;
+			},
+
+			//Perform a math operation on all items of a data object
+			//data: data object to be operated on
+			//value: the value of the operation
+			//operation: the type of operation
+			calculateDataObject : function(data, value, operation) {
+				var result = {};
+				for (var i in data) {
+					if (data.hasOwnProperty(i)) {
+						result[i] = utility.calculate(data[i], value, operation);
+					}
+				}
 				return result;
 			},
 

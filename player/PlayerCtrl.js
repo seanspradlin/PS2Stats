@@ -194,7 +194,59 @@
 
 				//Execute on Score Per Hour Tab click
 				$scope.sphLoad = function() {
+					var createCharts = function() {
 
+						//Generate data for k/d ratio by the day
+						$scope.sphDay = BaseSvc.chartBuilder(
+							[
+							{ id: 'day-id', label: 'Day', type: 'string' },
+							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
+							],
+							BaseSvc.dataBuilder(BaseSvc.range(1,30),[BaseSvc.mergeDataObjects($scope.history.score.day, $scope.history.time.day, 'division')]),
+							{
+								'title' : 'Score/Hour Per Day',
+								'vAxis' : { 'title' : 'Rate' },
+								'hAxis' : { 'title' : 'Day' }
+							});
+
+						//Generate data for k/d ratio by the week
+						$scope.sphWeek = BaseSvc.chartBuilder(
+							[
+							{ id: 'week-id', label: 'Week', type: 'string' },
+							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
+							],
+							BaseSvc.dataBuilder(BaseSvc.range(1,13),[BaseSvc.mergeDataObjects($scope.history.score.week, $scope.history.time.week, 'division')]),
+							{
+								'title' : 'Score/Hour Per Week',
+								'vAxis' : { 'title' : 'Rate' },
+								'hAxis' : { 'title' : 'Week' }
+							});
+
+						//Generate data for k/d ratio by the month
+						$scope.sphMonth = BaseSvc.chartBuilder(
+							[
+							{ id: 'month-id', label: 'Month', type: 'string' },
+							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
+							],
+							BaseSvc.dataBuilder(BaseSvc.range(1,12),[BaseSvc.mergeDataObjects($scope.history.score.month, $scope.history.time.month, 'division')]),
+							{
+								'title' : 'Score/Hour Per Month',
+								'vAxis' : { 'title' : 'Points' },
+								'hAxis' : { 'title' : 'Month' }
+							});
+					};
+
+					//Check if score/time data has been loaded, if not, then fetch the data
+					if (typeof $scope.history.score === 'undefined' || typeof $scope.history.time === 'undefined') {
+						PlayerSvc.getPlayerStatHistory($scope.player.character_id,'score,time').then(function(data) {
+							$scope.history.score = data.score;
+							$scope.history.time = data.time;
+							createCharts();
+						}, onError);
+					}
+					else {
+						createCharts();
+					}
 				};
 
 				//Run kdLoad since it is the active tab on page load

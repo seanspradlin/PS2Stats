@@ -215,14 +215,13 @@
 							},
 							'LineChart',
 							{
-							    number : [
-							      {
-							        columnNum : 1,
-							        pattern : '###,###'
-							      }
-							    ]
-							  }
-							);
+								number : [
+								{
+									columnNum : 1,
+									pattern : '###,###'
+								}
+								]
+							});
 
 						//Generate data for k/d ratio by the week
 						$scope.sphWeek = BaseSvc.chartBuilder.build(
@@ -230,21 +229,26 @@
 							{ id: 'week-id', label: 'Week', type: 'string' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
-							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.week, $scope.history.time.week, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),
+								[
+								BaseSvc.chartBuilder.calculateDataObject(
+									BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.week, $scope.history.time.week, 'division'),
+									3600, 'multiplication')
+								]),
 							{
 								'title' : 'Score/Hour Per Week',
 								'vAxis' : { 'title' : 'Rate' },
 								'hAxis' : { 'title' : 'Week' }
-							}),
+							},
 							'LineChart',
 							{
-							    number : [
-							      {
-							        columnNum : 1,
-							        pattern : '###,###'
-							      }
-							    ]
-							  };
+								number : [
+								{
+									columnNum : 1,
+									pattern : '###,###'
+								}
+								]
+							});
 
 						//Generate data for k/d ratio by the month
 						$scope.sphMonth = BaseSvc.chartBuilder.build(
@@ -252,21 +256,26 @@
 							{ id: 'month-id', label: 'Month', type: 'string' },
 							{ id: 'sph-id', label: 'Score Per Hour', type: 'number' }
 							],
-							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.month, $scope.history.time.month, 'division')]),
+							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),
+								[
+								BaseSvc.chartBuilder.calculateDataObject(
+									BaseSvc.chartBuilder.mergeDataObjects($scope.history.score.month, $scope.history.time.month, 'division'),
+									3600, 'multiplication')
+								]),
 							{
 								'title' : 'Score/Hour Per Month',
 								'vAxis' : { 'title' : 'Points' },
 								'hAxis' : { 'title' : 'Month' }
-							}),
+							},
 							'LineChart',
 							{
-							    number : [
-							      {
-							        columnNum : 1,
-							        pattern : '###,###'
-							      }
-							    ]
-							  };
+								number : [
+								{
+									columnNum : 1,
+									pattern : '###,###'
+								}
+								]
+							});
 					};
 
 					//Check if score/time data has been loaded, if not, then fetch the data

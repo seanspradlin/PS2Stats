@@ -30,6 +30,24 @@
 			});
 		};
 
+		//Get array of kill/death history
+		var getPlayerKillboard = function(playerID, length) {
+			length = typeof length !== 'undefined' ? length : 20;
+			return $http.jsonp(BaseSvc.urlBuilder.build('characters_event', [
+				'character_id=' + playerID,
+				'c:limit=' + length,
+				'type=KILL,DEATH',
+				'c:resolve=character_name,attacker_name',
+				'c:join=type:loadout^on:attacker_loadout_id^to:loadout_id^inject_at:attacker_loadout',
+				'c:join=type:loadout^on:character_loadout_id^to:loadout_id^inject_at:character_loadout',
+				'c:join=type:item^on:attacker_weapon_id^to:item_id^inject_at:weapon^show:name.en',
+				'c:join=type:vehicle^on:attacker_vehicle_id^to:vehicle_id^inject_at:vehicle^show:name.en'
+				]))
+			.then(function(response) {
+				return response.data.characters_event_list;
+			});
+		};
+
 		//Gets specific player stats, stats separated by comma, ie. 'kills,deaths'
 		var getPlayerStat = function(playerID, stat) {
 			return $http.jsonp(BaseSvc.urlBuilder.build('characters_stat', [
@@ -70,6 +88,7 @@
 		return {
 			'getPlayer' : getPlayer,
 			'getPlayerFriends' : getPlayerFriends,
+			'getPlayerKillboard' : getPlayerKillboard,
 			'getPlayerStat' : getPlayerStat,
 			'getPlayerStatByFaction' : getPlayerStatByFaction,
 			'getPlayerStatHistory' : getPlayerStatHistory

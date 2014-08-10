@@ -148,9 +148,9 @@
 		};
 
 		return {
-			utility : utility,
-			urlBuilder : urlBuilder,
-			chartBuilder : chartBuilder
+			'utility' : utility,
+			'urlBuilder' : urlBuilder,
+			'chartBuilder' : chartBuilder
 		};
 	};
 

@@ -19,6 +19,18 @@
 			});
 		};
 
+		//Get a player's friends, returns object containing online and offline friends
+		var getPlayerFriends = function(playerID) {
+			return $http.jsonp(BaseSvc.urlBuilder.build('characters_friend', [
+				'character_id=' + playerID,
+				'c:resolve=character_name',
+				'c:tree=start:friend_list^field:online^prefix:online_^list:1'
+				]))
+			.then(function(response) {
+				return response.data.friend_lists;
+			});
+		};
+
 		//Gets specific player stats, stats separated by comma, ie. 'kills,deaths'
 		var getPlayerStat = function(playerID, stat) {
 			return $http.jsonp(BaseSvc.urlBuilder.build('characters_stat', [
@@ -57,10 +69,11 @@
 		};
 
 		return {
-			getPlayer: getPlayer,
-			getPlayerStat: getPlayerStat,
-			getPlayerStatByFaction: getPlayerStatByFaction,
-			getPlayerStatHistory: getPlayerStatHistory
+			'getPlayer' : getPlayer,
+			'getPlayerFriends' : getPlayerFriends,
+			'getPlayerStat' : getPlayerStat,
+			'getPlayerStatByFaction' : getPlayerStatByFaction,
+			'getPlayerStatHistory' : getPlayerStatHistory
 		};
 	};
 

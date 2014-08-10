@@ -27,7 +27,7 @@
 		<div class="col-md-2 text-center" ng-bind-template="Created: {{player.created}}"></div>
 		<div class="col-md-2 text-center">Status: 
 			<span class="text-danger" ng-show="player.online_status == 0">Offline</span>
-			<span class="text-success" ng-show="player.online_status == 1">Online</span>
+			<span class="text-success" ng-show="player.online_status > 0">Online</span>
 		</div>
 	</div>
 	<hr>

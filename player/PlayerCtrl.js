@@ -2,11 +2,28 @@
 	var app = angular.module('PS2Info');
 
 	var PlayerCtrl = function($scope, $routeParams, PlayerSvc, BaseSvc) {
-
 		//Execute when player data received
 		var onPlayerComplete = function(data) {
 			//Player Data
 			$scope.player = data;
+
+			//Friends List
+			PlayerSvc.getPlayerFriends($scope.player.character_id).then(function(data) {
+				$scope.friends = { };
+				$scope.friends.offline = typeof data.online_0 !== 'undefined' ? data.online_0 : { };
+				$scope.friends.online = typeof data.online_1 !== 'undefined' ? data.online_1 : { };
+
+				$scope.friends.online.status = {
+					isOpen : $scope.friends.online.length < 10,
+					visible : $scope.friends.online.length > 0,
+					order : 'name.first'
+				};
+				$scope.friends.offline.status = {
+					isOpen : $scope.friends.offline.length < 10,
+					visible : $scope.friends.offline.length > 0,
+					order : 'name.first'
+				};
+			}, onError);
 
 			//History
 			PlayerSvc.getPlayerStatHistory($scope.player.character_id,'kills,deaths,time,score').then(function(data) {

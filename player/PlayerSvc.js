@@ -1,6 +1,5 @@
 (function() {
 	var PlayerSvc = function($http, BaseSvc) {
-
 		//Returns basic player profile data
 		var getPlayer = function(name) {
 			name = typeof name !== 'undefined' ? name : 'higby';
@@ -24,10 +23,10 @@
 			return $http.jsonp(BaseSvc.urlBuilder.build('characters_friend', [
 				'character_id=' + playerID,
 				'c:resolve=character_name',
-				'c:tree=start:friend_list^field:online^prefix:online_^list:1'
+				'c:tree=start:friend_list^field:online^list:1^prefix:online_'
 				]))
 			.then(function(response) {
-				return response.data.friend_lists;
+				return response.data.characters_friend_list[0].friend_list;
 			});
 		};
 
@@ -41,7 +40,7 @@
 				]))
 			.then(function(response) {
 				return response.data.characters_stat_list[0];
-			});
+			});	
 		};
 		//Gets faction-specific player stats, stats separated by comma, ie. 'kills,deaths'
 		var getPlayerStatByFaction = function(playerID, stat) {

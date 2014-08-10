@@ -5,10 +5,10 @@
 
 		//Execute when player data received
 		var onPlayerComplete = function(data) {
-			// Player Data
+			//Player Data
 			$scope.player = data;
 
-			// History
+			//History
 			PlayerSvc.getPlayerStatHistory($scope.player.character_id,'kills,deaths,time,score').then(function(data) {
 				$scope.history = data;
 				$scope.player.sph = BaseSvc.utility.addCommas(($scope.history.score.all_time / $scope.history.time.all_time * 3600).toFixed(0));
@@ -23,15 +23,15 @@
 						//Generate data for kills/deaths by the day
 						$scope.kdDay = BaseSvc.chartBuilder.build(
 							[
-							{id: "day-id", label: "Day", type: "number" },
-							{id: "kills-id", label: "Kills", type: "number"},
-							{id: "deaths-id", label: "Deaths", type: "number"}
+							{ id: 'day-id', label: 'Day', type: 'number' },
+							{ id: 'kills-id', label: 'Kills', type: 'number' },
+							{ id: 'deaths-id', label: 'Deaths', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,30),[$scope.history.kills.day, $scope.history.deaths.day]),
 							{
-								"title": "Kills/Deaths Per Day",
-								"vAxis": { "title": "Score" },
-								"hAxis": { "title": "Day" }
+								'title': 'Kills/Deaths Per Day',
+								'vAxis': { 'title': 'Score' },
+								'hAxis': { 'title': 'Day' }
 							},
 							'LineChart',
 							{
@@ -45,15 +45,15 @@
 						//Generate data for kills/deaths by the week
 						$scope.kdWeek = BaseSvc.chartBuilder.build(
 							[
-							{id: "day-id", label: "Week", type: "number" },
-							{id: "kills-id", label: "Kills", type: "number"},
-							{id: "deaths-id", label: "Deaths", type: "number"}
+							{ id: 'day-id', label: 'Week', type: 'number' },
+							{ id: 'kills-id', label: 'Kills', type: 'number' },
+							{ id: 'deaths-id', label: 'Deaths', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,13),[$scope.history.kills.week, $scope.history.deaths.week]),
 							{
-								"title": "Kills/Deaths Per Week",
-								"vAxis": { "title": "Score" },
-								"hAxis": { "title": "Week" }
+								'title': 'Kills/Deaths Per Week',
+								'vAxis': { 'title': 'Score' },
+								'hAxis': { 'title': 'Week' }
 							},
 							'LineChart',
 							{
@@ -67,15 +67,15 @@
 						//Generate data for kills/deaths by the month
 						$scope.kdMonth = BaseSvc.chartBuilder.build(
 							[
-							{id: "day-id", label: "Day", type: "number" },
-							{id: "kills-id", label: "Kills", type: "number"},
-							{id: "deaths-id", label: "Deaths", type: "number"}
+							{ id: 'day-id', label: 'Day', type: 'number' },
+							{ id: 'kills-id', label: 'Kills', type: 'number' },
+							{ id: 'deaths-id', label: 'Deaths', type: 'number' }
 							],
 							BaseSvc.chartBuilder.buildData(BaseSvc.utility.range(1,12),[$scope.history.kills.month, $scope.history.deaths.month]),
 							{
-								"title": "Kills/Deaths Per Month",
-								"vAxis": { "title": "Score" },
-								"hAxis": { "title": "Month" }
+								'title': 'Kills/Deaths Per Month',
+								'vAxis': { 'title': 'Score' },
+								'hAxis': { 'title': 'Month' }
 							},
 							'LineChart',
 							{

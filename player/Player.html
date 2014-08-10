@@ -1,118 +1,125 @@
 <!-- Loader -->
-<div class="container-fluid" ng-show="!player">
+<div class="container-fluid" ng-show="!player && !error">
+    <div class="col-md-12">
+        <p>Loading...</p>
+    </div>
+</div>
+
+<!-- Error -->
+<div class="container-fluid" ng-show="error">
 	<div class="col-md-12">
-		<p>Loading...</p>
+		<p class="text-danger">Error loading player data!</p>
 	</div>
 </div>
 
 <!-- Main Content -->
-<div class="container-fluid" ng-show="player">
-	<!-- Header -->
-	<div class="row">
-		<div class="col-md-6 text-left">
-			<h1 ng-bind-template="{{player.title.name.en}} {{player.name.first}}"></h1>
-		</div>
-		<div class="col-md-6 text-right">
-			<h2 ng-bind-template="{{player.faction.name.en}} :: {{player.world.name.en}}"></h2>
-		</div>
-	</div>
+<div class="container-fluid" ng-show="player && !error">
+    <!-- Header -->
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <h1 ng-bind-template="{{player.title.name.en}} {{player.name.first}}"></h1>
+        </div>
+        <div class="col-md-6 text-right">
+            <h2 ng-bind-template="{{player.faction.name.en}} :: {{player.world.name.en}}"></h2>
+        </div>
+    </div>
 
-	<!-- Info Bar -->
-	<hr>
-	<div class="row">
-		<div class="col-md-2 text-center" ng-bind-template="{{player.outfit.rank}} of {{player.outfit.details.name}}"></div>
-		<div class="col-md-2 text-center" ng-bind-template="Battle Rank: {{player.battle_rank.value}}"></div>
-		<div class="col-md-2 text-center" ng-bind-template="Score/Hour: {{player.sph}}"></div>
-		<div class="col-md-2 text-center" ng-bind-template="Kill/Death Ratio: {{player.kdr}}"></div>
-		<div class="col-md-2 text-center" ng-bind-template="Created: {{player.created}}"></div>
-		<div class="col-md-2 text-center">Status: 
-			<span class="text-danger" ng-show="player.online_status == 0">Offline</span>
-			<span class="text-success" ng-show="player.online_status > 0">Online</span>
-		</div>
-	</div>
-	<hr>
-	
-	<div class="row">
-		<!-- Social -->
-		<section id="community">
+    <!-- Info Bar -->
+    <hr>
+    <div class="row">
+        <div class="col-md-2 text-center" ng-bind-template="{{player.outfit.rank}} of {{player.outfit.details.name}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Battle Rank: {{player.battle_rank.value}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Score/Hour: {{player.sph}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Kill/Death Ratio: {{player.kdr}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Created: {{player.created}}"></div>
+        <div class="col-md-2 text-center">Status:
+            <span class="text-danger" ng-show="player.online_status == 0">Offline</span>
+            <span class="text-success" ng-show="player.online_status > 0">Online</span>
+        </div>
+    </div>
+    <hr>
 
-		</section>
+    <div class="row">
+        <!-- Social -->
+        <section id="community">
 
-		<!-- Killboard -->
-		<section id="killboard">
+        </section>
 
-		</section>
+        <!-- Killboard -->
+        <section id="killboard">
 
-	</div>
+        </section>
 
-	<div class="row">
-		<!-- Stats -->
-		<section class="col-md-10" id="stats">
-			<tabset>
-				<!-- Kill/Deaths -->
-				<tab heading="Kills/Deaths" active="true" select="kdLoad()">
-					<div google-chart chart="kdDay"></div>
-					<div google-chart chart="kdWeek"></div>
-					<div google-chart chart="kdMonth"></div>
-				</tab>
+    </div>
 
-				<!-- Kill/Death Ratio -->
-				<tab heading="Kill/Death Ratio" select="kdrLoad()">
-					<div google-chart chart="kdrDay"></div>
-					<div google-chart chart="kdrWeek"></div>
-					<div google-chart chart="kdrMonth"></div>
-				</tab>
+    <div class="row">
+        <!-- Stats -->
+        <section class="col-md-10" id="stats">
+            <tabset>
+                <!-- Kill/Deaths -->
+                <tab heading="Kills/Deaths" active="true" select="kdLoad()">
+                    <div google-chart chart="kdDay"></div>
+                    <div google-chart chart="kdWeek"></div>
+                    <div google-chart chart="kdMonth"></div>
+                </tab>
 
-				<!-- Certs -->
-				<tab heading="Certs" select="certsLoad()">
-					<div google-chart chart="certsDay"></div>
-					<div google-chart chart="certsWeek"></div>
-					<div google-chart chart="certsMonth"></div>
-				</tab>
+                <!-- Kill/Death Ratio -->
+                <tab heading="Kill/Death Ratio" select="kdrLoad()">
+                    <div google-chart chart="kdrDay"></div>
+                    <div google-chart chart="kdrWeek"></div>
+                    <div google-chart chart="kdrMonth"></div>
+                </tab>
 
-				<!-- Score Per Hour -->
-				<tab heading="Score Per Hour" select="sphLoad()">
-					<div google-chart chart="sphDay"></div>
-					<div google-chart chart="sphWeek"></div>
-					<div google-chart chart="sphMonth"></div>
-				</tab>
+                <!-- Certs -->
+                <tab heading="Certs" select="certsLoad()">
+                    <div google-chart chart="certsDay"></div>
+                    <div google-chart chart="certsWeek"></div>
+                    <div google-chart chart="certsMonth"></div>
+                </tab>
 
-				<!-- Time Played -->
-				<tab heading="Time Played" select="timeLoad()">
-					<div google-chart chart="timeDay"></div>
-					<div google-chart chart="timeWeek"></div>
-					<div google-chart chart="timeMonth"></div>
-				</tab>
-			</tabset>
-		</section>
+                <!-- Score Per Hour -->
+                <tab heading="Score Per Hour" select="sphLoad()">
+                    <div google-chart chart="sphDay"></div>
+                    <div google-chart chart="sphWeek"></div>
+                    <div google-chart chart="sphMonth"></div>
+                </tab>
 
-		<!-- Friends -->
-		<section class="col-md-2" id="friends">
-		<h3>Friends</h3>
-			<accordion>
-				<accordion-group is-open="friends.online.status.isOpen" ng-show="friends.online.status.visible">
-				<accordion-heading>
-				<span ng-bind="friends.online.length"></span> Online
-				<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': friends.online.status.isOpen, 'glyphicon-chevron-right': !friends.online.status.isOpen}"></i>
-				</accordion-heading>
-				<ul class="nav nav-pills nav-stacked">
-					<li ng-repeat="friend in friends.online | orderBy:friend.online.status.order">
-						<a ng-href='#/player/{{friend.name.first_lower}}' ng-bind="friend.name.first"></a>
-					</li>
-				</ul>
-			</accordion-group>
-			<accordion-group is-open="friends.offline.status.isOpen" ng-show="friends.offline.status.visible">
-			<accordion-heading>
-			<span ng-bind="friends.offline.length"></span> Offline
-			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': friends.offline.status.isOpen, 'glyphicon-chevron-right': !friends.offline.status.isOpen}"></i>
-			</accordion-heading>
-			<ul class="nav nav-pills nav-stacked">
-				<li ng-repeat="friend in friends.offline">
-					<a ng-href='#/player/{{friend.name.first_lower}}' ng-bind="friend.name.first"></a>
-				</li>
-			</ul>
-		</accordion-group>
-	</accordion>
-</section>
-</div>
+                <!-- Time Played -->
+                <tab heading="Time Played" select="timeLoad()">
+                    <div google-chart chart="timeDay"></div>
+                    <div google-chart chart="timeWeek"></div>
+                    <div google-chart chart="timeMonth"></div>
+                </tab>
+            </tabset>
+        </section>
+
+        <!-- Friends -->
+        <section class="col-md-2" id="friends">
+            <h3>Friends</h3>
+            <accordion>
+                <accordion-group is-open="friends.online.status.isOpen" ng-show="friends.online.status.visible">
+                    <accordion-heading>
+                        <span ng-bind="friends.online.length"></span> Online
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': friends.online.status.isOpen, 'glyphicon-chevron-right': !friends.online.status.isOpen}"></i>
+                    </accordion-heading>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li ng-repeat="friend in friends.online | orderBy:friend.online.status.order">
+                            <a ng-href='#/player/{{friend.name.first_lower}}' ng-bind="friend.name.first"></a>
+                        </li>
+                    </ul>
+                </accordion-group>
+                <accordion-group is-open="friends.offline.status.isOpen" ng-show="friends.offline.status.visible">
+                    <accordion-heading>
+                        <span ng-bind="friends.offline.length"></span> Offline
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': friends.offline.status.isOpen, 'glyphicon-chevron-right': !friends.offline.status.isOpen}"></i>
+                    </accordion-heading>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li ng-repeat="friend in friends.offline">
+                            <a ng-href='#/player/{{friend.name.first_lower}}' ng-bind="friend.name.first"></a>
+                        </li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+        </section>
+    </div>
 </div>

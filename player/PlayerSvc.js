@@ -38,8 +38,8 @@
 				'c:limit=' + length,
 				'type=KILL,DEATH',
 				'c:resolve=character_name,attacker_name',
-				'c:join=type:loadout^on:attacker_loadout_id^to:loadout_id^inject_at:attacker_loadout',
-				'c:join=type:loadout^on:character_loadout_id^to:loadout_id^inject_at:character_loadout',
+				'c:join=type:loadout^on:attacker_loadout_id^to:loadout_id^inject_at:attacker_loadout(faction^on:faction_id^show:name.en%27code_tag%27image_path^inject_at:faction)',
+				'c:join=type:loadout^on:character_loadout_id^to:loadout_id^inject_at:character_loadout(faction^on:faction_id^show:name.en%27code_tag%27image_path^inject_at:faction)',
 				'c:join=type:item^on:attacker_weapon_id^to:item_id^inject_at:weapon^show:name.en',
 				'c:join=type:vehicle^on:attacker_vehicle_id^to:vehicle_id^inject_at:vehicle^show:name.en'
 				]))

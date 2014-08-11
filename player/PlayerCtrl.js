@@ -8,12 +8,25 @@
             $scope.player = data;
             loadFriends($scope.player.character_id);
             loadHistory($scope.player.character_id);
+            loadKillboard($scope.player.character_id, 20);
         };
 
         //Execute on error
         var onError = function(reason) {
             $scope.error = true;
             console.log(reason);
+        };
+
+        //Load killboard
+        var loadKillboard = function(playerId, length) {
+            PlayerSvc.getPlayerKillboard(playerId, length).then(function(data) {
+                $scope.killboard = data;
+
+                //Set color value
+                $scope.killboard.forEach(function(value) {
+                    value.color = value.attacker_character_id == playerId ? '' : 'danger';
+                });
+            }, onError);
         };
 
         //Load friends list

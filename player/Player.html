@@ -7,9 +7,9 @@
 
 <!-- Error -->
 <div class="container-fluid" ng-show="error">
-	<div class="col-md-12">
-		<p class="text-danger">Error loading player data!</p>
-	</div>
+    <div class="col-md-12">
+        <p class="text-danger">Error loading player data!</p>
+    </div>
 </div>
 
 <!-- Main Content -->
@@ -40,21 +40,9 @@
     <hr>
 
     <div class="row">
-        <!-- Social -->
-        <section id="community">
-
-        </section>
-
-        <!-- Killboard -->
-        <section id="killboard">
-
-        </section>
-
-    </div>
-
-    <div class="row">
         <!-- Stats -->
-        <section class="col-md-10" id="stats">
+        <section class="col-md-12" id="stats">
+            <h3>Stats</h3>
             <tabset>
                 <!-- Kill/Deaths -->
                 <tab heading="Kills/Deaths" active="true" select="kdLoad()">
@@ -93,13 +81,36 @@
             </tabset>
         </section>
 
+        <!-- Killboard -->
+        <section class="col-md-10" id="killboard">
+            <h3>Killboard</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>Killer</td>
+                        <td>Victim</td>
+                        <td>Weapon</td>
+                        <td>Vehicle</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="kill in killboard" ng-class="kill.color">
+                        <td ng-bind="kill.attacker.name.first"></td>
+                        <td ng-bind="kill.character.name.first"></td>
+                        <td ng-bind="kill.weapon.name.en"></td>
+                        <td ng-bind="kill.vehicle.name.en"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
         <!-- Friends -->
         <section class="col-md-2" id="friends">
             <h3>Friends</h3>
             <accordion>
                 <accordion-group is-open="friends.online.status.isOpen" ng-show="friends.online.status.visible">
                     <accordion-heading>
-                        <span ng-bind="friends.online.length"></span> Online
+                        <span ng-bind="friends.online.length"></span>&nbsp;Online
                         <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': friends.online.status.isOpen, 'glyphicon-chevron-right': !friends.online.status.isOpen}"></i>
                     </accordion-heading>
                     <ul class="nav nav-pills nav-stacked">
@@ -110,7 +121,7 @@
                 </accordion-group>
                 <accordion-group is-open="friends.offline.status.isOpen" ng-show="friends.offline.status.visible">
                     <accordion-heading>
-                        <span ng-bind="friends.offline.length"></span> Offline
+                        <span ng-bind="friends.offline.length"></span>&nbsp;Offline
                         <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': friends.offline.status.isOpen, 'glyphicon-chevron-right': !friends.offline.status.isOpen}"></i>
                     </accordion-heading>
                     <ul class="nav nav-pills nav-stacked">
@@ -121,5 +132,6 @@
                 </accordion-group>
             </accordion>
         </section>
+
     </div>
 </div>

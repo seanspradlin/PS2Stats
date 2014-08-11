@@ -24,7 +24,7 @@
 
                 //Set color value
                 $scope.killboard.forEach(function(value) {
-                    value.color = value.attacker_character_id == playerId ? '' : 'danger';
+                    value.color = value.attacker_character_id === playerId ? '' : 'danger';
                 });
             }, onError);
         };

@@ -84,24 +84,26 @@
         <!-- Killboard -->
         <section class="col-md-10" id="killboard">
             <h3>Killboard</h3>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <td>Killer</td>
-                        <td>Victim</td>
-                        <td>Weapon</td>
-                        <td>Vehicle</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="kill in killboard" ng-class="kill.color">
-                        <td ng-bind="kill.attacker.name.first"></td>
-                        <td ng-bind="kill.character.name.first"></td>
-                        <td ng-bind="kill.weapon.name.en"></td>
-                        <td ng-bind="kill.vehicle.name.en"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Killer</td>
+                            <td>Victim</td>
+                            <td>Weapon</td>
+                            <td>Vehicle</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="kill in killboard" ng-class="kill.color">
+                            <td ng-bind-template="{{kill.attacker_loadout.faction.code_tag}} {{kill.attacker.name.first}}"></td>
+                            <td ng-bind-template="{{kill.character_loadout.faction.code_tag}} {{kill.character.name.first}}"></td>
+                            <td ng-bind="kill.weapon.name.en"></td>
+                            <td ng-bind="kill.vehicle.name.en"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- Friends -->

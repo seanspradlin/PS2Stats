@@ -4,28 +4,20 @@
 	app.config(function ($routeProvider) {
 		$routeProvider
 		.when('/', {
-			templateUrl: 'main/Main.html',
-			controller: 'MainCtrl'
+			'templateUrl' : 'main/Main.html',
+			'controller' : 'MainCtrl'
 		})
-		.when('/class', {
-			templateUrl: 'class/Class.html',
-			controller: 'ClassCtrl'
+		.when('/search/:searchterm', {
+			'templateUrl' : 'search/Search.html',
+			'controller' : 'SearchCtrl'
 		})
-		.when('/weapon', {
-			templateUrl: 'weapon/Weapon.html',
-			controller: 'WeaponCtrl'
-		})
-		.when('/implant', {
-			templateUrl: 'implant/Implant.html',
-			controller: 'ImplantCtrl'
-		})
-		.when('/vehicle', {
-			templateUrl: 'vehicle/Vehicle.html',
-			controller: 'VehicleCtrl'
+		.when('/outfit/:outfitname', {
+			'templateUrl' : 'outfit/Outfit.html',
+			'controller' : 'OutfitCtrl'
 		})
 		.when('/player/:playername', {
-			templateUrl: 'player/Player.html',
-			controller: 'PlayerCtrl'
+			'templateUrl' : 'player/Player.html',
+			'controller' : 'PlayerCtrl'
 		})
 		.otherwise({redirectTo:'/'});
 	});

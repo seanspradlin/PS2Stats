@@ -1,0 +1,89 @@
+<!-- Loader -->
+<div class="container-fluid" ng-show="!players || !outfits && !error">
+    <div class="col-md-12">
+        <p>Loading...</p>
+    </div>
+</div>
+
+<!-- Error -->
+<div class="container-fluid" ng-show="error">
+    <div class="col-md-12">
+        <p class="text-danger">Error loading player data!</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container-fluid" ng-show="players || outfits && !error">
+    <!-- Header -->
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Search Results</h1>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Players -->
+    <div class="row">
+        <!-- Players -->
+        <div class="col-md-6">
+            <h2>Players</h2>
+            <table class="table table-hover table-striped" ng-show="players.length > 0">
+                <thead>
+                    <tr>
+                        <td>Player</td>
+                        <td>Outfit</td>
+                        <td>Faction</td>
+                        <td>Rank</td>
+                        <td>Server</td>
+                        <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="player in players">
+                        <td>
+                            <a ng-href="#/player/{{player.name.first_lower}}" ng-bind="player.name.first"></a>
+                        </td>
+                        <td>
+                            <a ng-href="#/outfit/{{player.outfit.alias}}" ng-bind="player.outfit.alias"></a>
+                        </td>
+                        <td ng-bind="player.faction.name.en"></td>
+                        <td ng-bind="player.battle_rank.value"></td>
+                        <td ng-bind="player.world.name.en"></td>
+                        <td>
+                            <span class="text-danger" ng-show="player.online_status == 0">Offline</span>
+                            <span class="text-success" ng-show="player.online_status > 0">Online</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p ng-show="players.length == 0">No results found.</p>
+        </div>
+
+        <!-- Outfits -->
+        <div class="col-md-6">
+            <h2>Outfits</h2>
+            <table class="table table-hover table-striped" ng-show="outfits.length > 0">
+            	<thead>
+            		<tr>
+            			<td>Name</td>
+            			<td>Tag</td>
+            			<td>Members</td>
+            			<td>Server</td>
+            		</tr>
+            	</thead>
+            	<tbody>
+            		<tr ng-repeat="outfit in outfits">
+            			<td>
+            				<a ng-href="#/outfit/{{outfit.alias}}" ng-bind="outfit.name"></a>
+            			</td>
+            			<td ng-bind="outfit.alias"></td>
+            			<td ng-bind="outfit.member_count"></td>
+            			<td></td>
+            		</tr>
+            	</tbody>
+            </table>
+            <p ng-show="outfits.length == 0">No results found.</p>
+        </div>
+    </div>
+</div>

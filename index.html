@@ -52,11 +52,11 @@
                     <li><a href="#/outfit">Outfits</a>
                     </li>
                 </ul>
-                <form name="search" class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left" role="search" ng-submit="search()">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search...">
+                        <input type="search" class="form-control" placeholder="Search..." ng-model="searchterm">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i>
+                            <button class="btn btn-primary" type="submit" value="Search"><i class="fa fa-search"></i>
                             </button>
                         </span>
                     </div>

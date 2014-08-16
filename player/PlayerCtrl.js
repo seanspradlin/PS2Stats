@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('PS2Info');
 
-    var PlayerCtrl = function($scope, $routeParams, PlayerSvc, BaseSvc) {
+    var PlayerCtrl = function($scope, $routeParams, $log, PlayerSvc, BaseSvc) {
         //Execute when player data received
         var onPlayerComplete = function(data) {
             //Player Data
@@ -14,7 +14,7 @@
         //Execute on error
         var onError = function(reason) {
             $scope.error = true;
-            console.log(reason);
+            $log.error(reason);
         };
 
         //Load killboard

@@ -1,5 +1,5 @@
 (function() {
-	var BaseSvc = function() {
+	var BaseSvc = function($log) {
 
 		/*      ()==[::::::::::::> UTILITIES <::::::::::::]==()      */
 
@@ -55,7 +55,7 @@
 				schema.forEach(function(element) {
 					url += '&&' + element;
 				});
-				console.log(url);
+				$log.info('GET: ' + url);
 				return url;
 			}
 		};

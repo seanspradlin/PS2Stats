@@ -40,74 +40,8 @@
     <hr>
 
     <div class="row">
-        <!-- Stats -->
-        <section class="col-md-12" id="stats">
-            <h3>Stats</h3>
-            <tabset>
-                <!-- Kill/Deaths -->
-                <tab heading="Kills/Deaths" active="true" select="kdLoad()">
-                    <div google-chart chart="kdDay"></div>
-                    <div google-chart chart="kdWeek"></div>
-                    <div google-chart chart="kdMonth"></div>
-                </tab>
-
-                <!-- Kill/Death Ratio -->
-                <tab heading="Kill/Death Ratio" select="kdrLoad()">
-                    <div google-chart chart="kdrDay"></div>
-                    <div google-chart chart="kdrWeek"></div>
-                    <div google-chart chart="kdrMonth"></div>
-                </tab>
-
-                <!-- Certs -->
-                <tab heading="Certs" select="certsLoad()">
-                    <div google-chart chart="certsDay"></div>
-                    <div google-chart chart="certsWeek"></div>
-                    <div google-chart chart="certsMonth"></div>
-                </tab>
-
-                <!-- Score Per Hour -->
-                <tab heading="Score Per Hour" select="sphLoad()">
-                    <div google-chart chart="sphDay"></div>
-                    <div google-chart chart="sphWeek"></div>
-                    <div google-chart chart="sphMonth"></div>
-                </tab>
-
-                <!-- Time Played -->
-                <tab heading="Time Played" select="timeLoad()">
-                    <div google-chart chart="timeDay"></div>
-                    <div google-chart chart="timeWeek"></div>
-                    <div google-chart chart="timeMonth"></div>
-                </tab>
-            </tabset>
-        </section>
-
-        <!-- Killboard -->
-        <section class="col-md-10" id="killboard">
-            <h3>Killboard</h3>
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <td>Killer</td>
-                            <td>Victim</td>
-                            <td>Weapon</td>
-                            <td>Vehicle</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="kill in killboard" ng-class="kill.color">
-                            <td ng-bind-template="{{kill.attacker_loadout.faction.code_tag}} {{kill.attacker.name.first}}"></td>
-                            <td ng-bind-template="{{kill.character_loadout.faction.code_tag}} {{kill.character.name.first}}"></td>
-                            <td ng-bind="kill.weapon.name.en"></td>
-                            <td ng-bind="kill.vehicle.name.en"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
         <!-- Friends -->
-        <section class="col-md-2" id="friends">
+        <section class="col-md-2 col-md-push-10" id="friends">
             <h3>Friends</h3>
             <accordion>
                 <accordion-group is-open="friends.online.status.isOpen" ng-show="friends.online.status.visible">
@@ -135,5 +69,72 @@
             </accordion>
         </section>
 
+        <div class="col-md-10 col-md-pull-2">
+            <!-- Stats -->
+            <section id="stats">
+                <h3>Stats</h3>
+                <tabset>
+                    <!-- Kill/Deaths -->
+                    <tab heading="Kills/Deaths" active="true" select="kdLoad()">
+                        <div google-chart chart="kdDay"></div>
+                        <div google-chart chart="kdWeek"></div>
+                        <div google-chart chart="kdMonth"></div>
+                    </tab>
+
+                    <!-- Kill/Death Ratio -->
+                    <tab heading="Kill/Death Ratio" select="kdrLoad()">
+                        <div google-chart chart="kdrDay"></div>
+                        <div google-chart chart="kdrWeek"></div>
+                        <div google-chart chart="kdrMonth"></div>
+                    </tab>
+
+                    <!-- Certs -->
+                    <tab heading="Certs" select="certsLoad()">
+                        <div google-chart chart="certsDay"></div>
+                        <div google-chart chart="certsWeek"></div>
+                        <div google-chart chart="certsMonth"></div>
+                    </tab>
+
+                    <!-- Score Per Hour -->
+                    <tab heading="Score Per Hour" select="sphLoad()">
+                        <div google-chart chart="sphDay"></div>
+                        <div google-chart chart="sphWeek"></div>
+                        <div google-chart chart="sphMonth"></div>
+                    </tab>
+
+                    <!-- Time Played -->
+                    <tab heading="Time Played" select="timeLoad()">
+                        <div google-chart chart="timeDay"></div>
+                        <div google-chart chart="timeWeek"></div>
+                        <div google-chart chart="timeMonth"></div>
+                    </tab>
+                </tabset>
+            </section>
+
+            <!-- Killboard -->
+            <section id="killboard">
+                <h3>Killboard</h3>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td>Killer</td>
+                                <td>Victim</td>
+                                <td>Weapon</td>
+                                <td>Vehicle</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="kill in killboard" ng-class="kill.color">
+                                <td ng-bind-template="{{kill.attacker_loadout.faction.code_tag}} {{kill.attacker.name.first}}"></td>
+                                <td ng-bind-template="{{kill.character_loadout.faction.code_tag}} {{kill.character.name.first}}"></td>
+                                <td ng-bind="kill.weapon.name.en"></td>
+                                <td ng-bind="kill.vehicle.name.en"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
     </div>
 </div>

@@ -32,16 +32,16 @@
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <td>Player</td>
-                            <td>Outfit</td>
-                            <td>Faction</td>
-                            <td>Rank</td>
-                            <td>Server</td>
-                            <td>Status</td>
+                            <th ng-click="sort('playerList', 'name.first')">Player</th>
+                            <th ng-click="sort('playerList', 'outfit.alias')">Outfit</th>
+                            <th ng-click="sort('playerList', 'faction.name.en')">Faction</th>
+                            <th ng-click="sort('playerList', 'battle_rank.value')">Rank</th>
+                            <th ng-click="sort('playerList', 'world.name.en')">Server</th>
+                            <th ng-click="sort('playerList', 'online_status')">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in players">
+                        <tr ng-repeat="player in players | orderBy:playerList.sortOrder:playerList.reverse">
                             <td>
                                 <a ng-href="#/player/{{player.name.first_lower}}" ng-bind="player.name.first"></a>
                             </td>
@@ -57,6 +57,13 @@
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                    	<tr class="info">
+                    		<td colspan="6">
+                    			Displaying <span ng-bind="players.length"></span> results. <span ng-show="players.length == 100">Refine search for more results.</span>
+                    		</td>
+                    	</tr>
+                    </tfoot>
                 </table>
             </div>
             <p ng-show="players.length == 0">No results found.</p>
@@ -69,14 +76,14 @@
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <td>Name</td>
-                            <td>Tag</td>
-                            <td>Members</td>
+                            <td ng-click="sort('outfitList', 'name')">Name</td>
+                            <td ng-click="sort('outfitList', 'alias')">Tag</td>
+                            <td ng-click="sort('outfitList', 'member_count')">Members</td>
                             <td>Server</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="outfit in outfits">
+                        <tr ng-repeat="outfit in outfits | orderBy:outfitList.sortOrder:outfitList.reverse">
                             <td>
                                 <a ng-href="#/outfit/{{outfit.alias}}" ng-bind="outfit.name"></a>
                             </td>
@@ -85,6 +92,13 @@
                             <td></td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                    	<tr class="info">
+                    		<td colspan="6">
+                    			Displaying <span ng-bind="outfits.length"></span> results. <span ng-show="outfits.length == 100">Refine search for more results.</span>
+                    		</td>
+                    	</tr>
+                    </tfoot>
                 </table>
             </div>
             <p ng-show="outfits.length == 0">No results found.</p>

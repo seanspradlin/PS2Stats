@@ -14,7 +14,12 @@
                     'c:lang=en'
                 ]))
                 .then(function(response) {
-                    return response.data.character_list;
+                	var data = response.data.character_list;
+                	//Convert battle_rank.value to an int
+                	angular.forEach(data, function (player) {
+                	   player.battle_rank.value = parseInt(player.battle_rank.value);
+                	  });
+                    return data;
                 });
         };
 
@@ -27,7 +32,11 @@
                     'c:limit=100'
                 ]))
                 .then(function(response) {
-                    return response.data.outfit_list;
+                	var data = response.data.outfit_list;
+                	angular.forEach(data, function(outfit) {
+                		outfit.member_count = parseInt(outfit.member_count);
+                	});
+                    return data;
                 });
         };
 

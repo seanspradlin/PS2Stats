@@ -11,11 +11,12 @@
             loadKillboard($scope.player.character_id, 20);
         };
 
-        //Execute on error
+         //Execute on error
         var onError = function(reason) {
             $scope.error = true;
             $log.error(reason);
         };
+
 
         //Load killboard
         var loadKillboard = function(playerId, length) {

@@ -3,7 +3,7 @@
         //Returns basic player profile data
         var getPlayer = function(name) {
             name = typeof name !== 'undefined' ? name : 'higby';
-            name = name.replace(/\s+/g, '').toLowerCase();
+            name = angular.lowercase(name.replace(/\s+/g, ''));
             return $http.jsonp(BaseSvc.urlBuilder.build('character', [
                     'name.first_lower=' + name,
                     'c:join=faction^on:faction_id^inject_at:faction',

@@ -3,7 +3,7 @@
         //Return a list of players beginning with the search term
         var getPlayers = function(search) {
             search = typeof search !== 'undefined' ? search : 'higby';
-            search = search.replace(/\s+/g, '').toLowerCase();
+            search = angular.lowercase(search.replace(/\s+/g, ''));
             return $http.jsonp(BaseSvc.urlBuilder.build('character', [
                     'name.first_lower=^' + search,
                     'c:limit=100',
@@ -26,7 +26,7 @@
         //Return a list of outfits beginning with the search term
         var getOutfits = function(search) {
             search = typeof search !== 'undefined' ? search : 'nuc';
-            search = search.replace(/\s+/g, '').toLowerCase();
+            search = angular.lowercase(search.replace(/\s+/g, ''));
             return $http.jsonp(BaseSvc.urlBuilder.build('outfit', [
                     'alias_lower=^' + search,
                     'c:limit=100'

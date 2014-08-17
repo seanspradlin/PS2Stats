@@ -41,7 +41,7 @@
 
     <div class="row">
         <!-- Friends -->
-        <section class="col-md-2 col-md-push-10" id="friends">
+        <section class="col-md-2 col-md-push-10" id="friends" ng-controller="FriendsCtrl">
             <h3>Friends</h3>
             <accordion>
                 <accordion-group is-open="friends.online.status.isOpen" ng-show="friends.online.status.visible">
@@ -71,7 +71,7 @@
 
         <div class="col-md-10 col-md-pull-2">
             <!-- Stats -->
-            <section id="stats">
+            <section id="stats" ng-controller="PlayerHistoryCtrl">
                 <h3>Stats</h3>
                 <tabset>
                     <!-- Kill/Deaths -->
@@ -112,7 +112,7 @@
             </section>
 
             <!-- Killboard -->
-            <section id="killboard">
+            <section id="killboard" ng-controller="KillboardCtrl">
                 <h3>Killboard</h3>
                 <div class="table-responsive">
                     <table class="table table-hover">

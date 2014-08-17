@@ -1,23 +1,7 @@
 (function() {
     var app = angular.module('PS2Info');
 
-    var PlayerCtrl = function($scope, $routeParams, $log, PlayerSvc, BaseSvc) {
-        //Execute when player data received
-        var onPlayerComplete = function(data) {
-            //Player Data
-            $scope.player = data;
-            loadFriends($scope.player.character_id);
-            loadHistory($scope.player.character_id);
-            loadKillboard($scope.player.character_id, 20);
-        };
-
-         //Execute on error
-        var onError = function(reason) {
-            $scope.error = true;
-            $log.error(reason);
-        };
-
-
+    var KillboardCtrl = function($scope, $log, PlayerSvc) {
         //Load killboard
         var loadKillboard = function(playerId, length) {
             PlayerSvc.getPlayerKillboard(playerId, length).then(function(data) {
@@ -30,6 +14,22 @@
             }, onError);
         };
 
+        //Execute on error
+        var onError = function(reason) {
+            $scope.error = true;
+            $log.error('KillboardCtrl: ' + reason);
+        };
+
+        //Execute when character ID is loaded
+        $scope.$watch('player.character_id', function(playerid) {
+            if (typeof playerid !== 'undefined') {
+                loadKillboard(playerid, 20);
+            }
+        });
+    };
+    app.controller('KillboardCtrl', KillboardCtrl);
+
+    var FriendsCtrl = function($scope, $log, PlayerSvc) {
         //Load friends list
         var loadFriends = function(playerId) {
             PlayerSvc.getPlayerFriends(playerId).then(function(data) {
@@ -50,6 +50,22 @@
             }, onError);
         };
 
+        //Execute on error
+        var onError = function(reason) {
+            $scope.error = true;
+            $log.error('FriendsCtrl: ' + reason);
+        };
+
+        //Execute when character ID is loaded
+        $scope.$watch('player.character_id', function(playerid) {
+            if (typeof playerid !== 'undefined') {
+                loadFriends(playerid, 20);
+            }
+        });
+    };
+    app.controller('FriendsCtrl', FriendsCtrl);
+
+    var PlayerHistoryCtrl = function($scope, $log, PlayerSvc, BaseSvc) {
         //Load player stat history and fill charts
         var loadHistory = function(playerId) {
             PlayerSvc.getPlayerStatHistory(playerId, 'kills,deaths,time,score').then(function(data) {
@@ -595,6 +611,34 @@
                 //Run kdLoad since it is the active tab on page load
                 $scope.kdLoad();
             }, onError);
+        };
+
+        //Execute on error
+        var onError = function(reason) {
+            $scope.error = true;
+            $log.error('PlayerHistoryCtrl: ' + reason);
+        };
+
+        //Execute when character ID is loaded
+        $scope.$watch('player.character_id', function(playerid) {
+            if (typeof playerid !== 'undefined') {
+                loadHistory(playerid, 20);
+            }
+        });
+    };
+    app.controller('PlayerHistoryCtrl', PlayerHistoryCtrl);
+
+    var PlayerCtrl = function($scope, $routeParams, $log, PlayerSvc) {
+        //Execute when player data received
+        var onPlayerComplete = function(data) {
+            //Player Data
+            $scope.player = data;
+        };
+
+        //Execute on error
+        var onError = function(reason) {
+            $scope.error = true;
+            $log.error('PlayerCtrl: ' + reason);
         };
 
         PlayerSvc.getPlayer($routeParams.playername).then(onPlayerComplete, onError);

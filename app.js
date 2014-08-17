@@ -32,13 +32,16 @@
     //Controller for search
     var SearchFormCtrl = function($scope, $location) {
         $scope.pattern = /^\s*\w*\s*$/;
+        $scope.validateButtonClass = 'btn-primary';
         $scope.search = function() {
             if ($scope.searchForm.searchField.$valid == true) {
                 $location.path('/search/' + $scope.searchterm);
                 $scope.validateClass = '';
+                $scope.validateButtonClass = 'btn-primary';
             }
             else {
                 $scope.validateClass = 'has-error';
+                $scope.validateButtonClass = 'btn-danger';
             }
         };
     };

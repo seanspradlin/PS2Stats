@@ -25,11 +25,23 @@
     });
 
     //Controller for root
-    var BaseCtrl = function($scope, $location) {
+    var BaseCtrl = function($scope) {
         $scope.isCollapsed = false;
+    };
+
+    //Controller for search
+    var SearchFormCtrl = function($scope, $location) {
+        $scope.pattern = /^\s*\w*\s*$/;
         $scope.search = function() {
-            $location.path(('/search/' + $scope.searchterm));
+            if ($scope.searchForm.searchField.$valid == true) {
+                $location.path('/search/' + $scope.searchterm);
+                $scope.validateClass = '';
+            }
+            else {
+                $scope.validateClass = 'has-error';
+            }
         };
     };
     app.controller('BaseCtrl', BaseCtrl);
+    app.controller('SearchFormCtrl', SearchFormCtrl);
 }());

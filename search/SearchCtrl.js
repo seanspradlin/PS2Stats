@@ -15,6 +15,12 @@
                 $scope.outfits = data;
             };
 
+            //Execute when server data received
+            var onServersComplete = function(data) {
+                $scope.servers = data;
+                $scope.servers.sortOrder = 'name.en';
+            };
+
             //Execute on error
             var onError = function(reason) {
                 $scope.error = true;
@@ -23,6 +29,7 @@
 
             SearchSvc.getPlayers($routeParams.searchterm).then(onPlayersComplete, onError);
             SearchSvc.getOutfits($routeParams.searchterm).then(onOutfitsComplete, onError);
+            SearchSvc.getServers().then(onServersComplete, onError);
 
             $scope.playerList = {
                 'sortOrder': 'name.first',

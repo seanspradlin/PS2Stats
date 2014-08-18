@@ -23,10 +23,22 @@
 
     <hr>
 
+    <!-- Parameters -->
+    <form name="parameters" class="row" role="refine">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="sever" class="label label-default">Server</label>
+                <select name="server" id="server" class="form-control">
+                    <option value="0">-- All Servers --</option>
+                    <option ng-repeat="server in servers | orderBy:servers.sortOrder" value="{{server.world_id}}" ng-bind="server.name.en"></option>
+                </select>
+            </div>
+        </div>
+    </form>
+
     <!-- Players -->
     <div class="row">
-        <!-- Players -->
-        <div class="col-md-6">
+        <div class="col-md-12">
             <h2>Players</h2>
             <div class="table-responsive" ng-show="players.length > 0">
                 <table class="table table-hover table-striped">
@@ -96,7 +108,8 @@
                     <tfoot>
                         <tr class="info">
                             <td colspan="6">
-                                Displaying&nbsp;<span ng-bind="players.length"></span>&nbsp;results.
+                                Displaying&nbsp;
+                                <span ng-bind="players.length"></span>&nbsp;results.
                                 <span ng-show="players.length == 100">Refine search for more results.</span>
                             </td>
                         </tr>
@@ -105,9 +118,12 @@
             </div>
             <p ng-show="players.length == 0">No results found.</p>
         </div>
+    </div>
 
-        <!-- Outfits -->
-        <div class="col-md-6">
+
+    <!-- Outfits -->
+    <div class="row">
+        <div class="col-md-12">
             <h2>Outfits</h2>
             <div class="table-responsive" ng-show="outfits.length > 0">
                 <table class="table table-hover table-striped">
@@ -150,7 +166,8 @@
                     <tfoot>
                         <tr class="info">
                             <td colspan="6">
-                                Displaying&nbsp;<span ng-bind="outfits.length"></span>&nbsp;results.
+                                Displaying&nbsp;
+                                <span ng-bind="outfits.length"></span>&nbsp;results.
                                 <span ng-show="outfits.length == 100">Refine search for more results.</span>
                             </td>
                         </tr>

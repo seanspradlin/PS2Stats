@@ -41,9 +41,22 @@
                     });
             };
 
+            //Return a list of servers
+            var getServers = function() {
+                return $http.jsonp(BaseSvc.urlBuilder.build('world', [
+                        'c:limit=20',
+                        'c:lang=en',
+                        'state=online'
+                    ]))
+                    .then(function(response) {
+                        return response.data.world_list;
+                    });
+            };
+
             return {
                 'getPlayers': getPlayers,
-                'getOutfits': getOutfits
+                'getOutfits': getOutfits,
+                'getServers': getServers
             };
         }
     ];

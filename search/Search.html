@@ -28,10 +28,31 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="sever" class="label label-default">Server</label>
-                <select name="server" id="server" class="form-control">
+                <select name="server" id="server" class="form-control" ng-model="filterParams.world.world_id" ng-change="filterData()">
                     <option value="0">-- All Servers --</option>
                     <option ng-repeat="server in servers | orderBy:servers.sortOrder" value="{{server.world_id}}" ng-bind="server.name.en"></option>
                 </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="faction" class="label label-default">Faction</label>
+                <select name="faction" id="faction" class="form-control" ng-model="filterParams.faction.faction_id" ng-change="filterData()">
+                    <option value="0">-- All Factions --</option>
+                    <option ng-repeat="faction in factions | orderBy:factions.sortOrder" value="{{faction.faction_id}}" ng-bind="faction.name.en"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="minLevel" class="label label-default">Min. Level</label>
+                <input type="number" name="minLevel" id="minLevel" class="form-control" ng-pattern="parameters.numbersFilter">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="maxLevel" class="label label-default">Max. Level</label>
+                <input type="number" name="maxLevel" id="maxLevel" class="form-control" ng-pattern="parameters.numbersFilter">
             </div>
         </div>
     </form>
@@ -89,7 +110,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in players | orderBy:playerList.sortOrder:playerList.reverse">
+                        <tr ng-repeat="player in filteredPlayers | orderBy:playerList.sortOrder:playerList.reverse">
                             <td>
                                 <a ng-href="#/player/{{player.name.first_lower}}" ng-bind="player.name.first"></a>
                             </td>

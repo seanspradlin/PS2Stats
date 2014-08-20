@@ -12,7 +12,8 @@
                         'c:join=faction^on:faction_id^inject_at:faction',
                         'c:join=world^on:world_id^inject_at:world',
                         'c:hide=certs,daily_ribbon,head_id,profile_id,times,title_id',
-                        'c:lang=en'
+                        'c:lang=en',
+                        'battle_rank.value=>0'
                     ]))
                     .then(function(response) {
                         var data = response.data.character_list;
@@ -53,10 +54,23 @@
                     });
             };
 
+            //Return a list of factions
+            var getFactions = function() {
+                return $http.jsonp(BaseSvc.urlBuilder.build('faction',[
+                    'c:limit=20',
+                    'c:lang=en',
+                    'faction_id=>0'
+                    ]))
+                .then(function(response) {
+                    return response.data.faction_list;
+                });
+            };
+
             return {
                 'getPlayers': getPlayers,
                 'getOutfits': getOutfits,
-                'getServers': getServers
+                'getServers': getServers,
+                'getFactions': getFactions
             };
         }
     ];

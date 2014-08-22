@@ -18,19 +18,25 @@
             //Execute when server data received
             var onServersComplete = function(data) {
                 $scope.servers = data;
-                $scope.servers.sortOrder = 'name.en';
+                $scope.servers.sortOrder = 'name';
             };
 
             //Execute when faction data received
             var onFactionsComplete = function(data) {
                 $scope.factions = data;
-                $scope.factions.sortOrder = 'name.en';
+                $scope.factions.sortOrder = 'name';
             };
 
             //Execute on error
             var onError = function(reason) {
                 $scope.error = true;
                 $log.error(reason);
+            };
+
+            $scope.sort = function(table, sortVariable) {
+                $scope[table] = typeof $scope[table] !== 'undefined' ? $scope[table] : {};
+                $scope[table].sortOrder = sortVariable;
+                $scope[table].reverse = typeof $scope[table].reverse !== 'undefined' ? !$scope[table].reverse : true;
             };
 
             SearchSvc.getPlayers($routeParams.searchterm).then(onPlayersComplete, onError);
@@ -42,30 +48,42 @@
                 'sortOrder': 'name.first',
                 'reverse': false
             };
+
             $scope.outfitList = {
                 'sortOrder': 'name',
                 'reverse': false
             };
-            $scope.parameters = {
-                numbersFilter: /[\u0030-\u0039]+/g
-            };
 
-            $scope.sort = function(table, sortVariable) {
-                $scope[table] = typeof $scope[table] !== 'undefined' ? $scope[table] : {};
-                $scope[table].sortOrder = sortVariable;
-                $scope[table].reverse = typeof $scope[table].reverse !== 'undefined' ? !$scope[table].reverse : true;
-            };
-
-            $scope.filterData = function() {
-                $scope.filteredPlayers = $scope.players;
-                if ($scope.filterParams.world.world_id > 0) {
-                    $scope.filteredPlayers = $filter('filter')($scope.filteredPlayers, $scope.filterParams.world, true);
-                }
-                if ($scope.filterParams.faction.faction_id > 0) {
-                    $scope.filteredPlayers = $filter('filter')($scope.filteredPlayers, $scope.filterParams.faction, true);
-                }
-            };
+                $scope.server = 0,
+                $scope.faction = 0,
+                $scope.minLevel = 1,
+                $scope.maxLevel = 100
         }
     ];
     app.controller('SearchCtrl', SearchCtrl);
+
+    app.filter('PlayerFilter', function() {
+        return function(input, server, faction, minLevel, maxLevel) {
+            minLevel = typeof minLevel !== 'undefined' ? minLevel : 1;
+            minLevel = minLevel > 0 ? minLevel : 1;
+            minLevel = minLevel <= 100 ? minLevel : 100;
+
+            maxLevel = typeof maxLevel !== 'undefined' ? maxLevel : 100;
+            maxLevel = maxLevel <= 100 ? maxLevel : 100;
+            maxLevel = maxLevel >= minLevel ? maxLevel : minLevel;
+
+            var filtered = [];
+            input = typeof input !== 'undefined' ? input : [];
+            for (var i = 0; i < input.length; i++) {
+                var isCorrectServer = input[i].world_id === server || server === 0;
+                var isCorrectFaction = input[i].faction_id === faction || faction === 0;
+                var isAboveMin = input[i].battle_rank >= minLevel;
+                var isBelowMax = input[i].battle_rank <= maxLevel;
+                if (isCorrectFaction && isCorrectServer && isAboveMin && isBelowMax) {
+                    filtered.push(input[i]);
+                }
+            }
+            return filtered;
+        };
+    });
 }());

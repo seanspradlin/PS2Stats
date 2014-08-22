@@ -17,11 +17,22 @@
                     ]))
                     .then(function(response) {
                         var data = response.data.character_list;
-                        //Convert battle_rank.value to an int
+                        var parsedData = [];
                         angular.forEach(data, function(player) {
-                            player.battle_rank.value = parseInt(player.battle_rank.value);
-                        });
-                        return data;
+                            var parsedPlayer = {
+                                'name': player.name.first,
+                                'battle_rank': parseInt(player.battle_rank.value),
+                                'faction': player.faction.name.en,
+                                'faction_id': parseInt(player.faction.faction_id),
+                                'online_status': parseInt(player.online_status),
+                                'world': player.world.name.en,
+                                'world_id': parseInt(player.world.world_id),
+                                'outfit': (typeof player.outfit !== 'undefined') ? player.outfit.alias : ''
+                            };
+                            this.push(parsedPlayer);
+                        }, parsedData);
+                        //Convert battle_rank.value to an int
+                        return parsedData;
                     });
             };
 
@@ -50,20 +61,44 @@
                         'state=online'
                     ]))
                     .then(function(response) {
-                        return response.data.world_list;
+                        var data = response.data.world_list;
+                        var parsedData = [{
+                            'name': '-- All Servers --',
+                            'id': 0
+                        }];
+                        angular.forEach(data, function(server) {
+                            var parsedServer = {
+                                'name': server.name.en,
+                                'id': parseInt(server.world_id)
+                            };
+                            this.push(parsedServer);
+                        }, parsedData);
+                        return parsedData;
                     });
             };
 
             //Return a list of factions
             var getFactions = function() {
-                return $http.jsonp(BaseSvc.urlBuilder.build('faction',[
-                    'c:limit=20',
-                    'c:lang=en',
-                    'faction_id=>0'
+                return $http.jsonp(BaseSvc.urlBuilder.build('faction', [
+                        'c:limit=20',
+                        'c:lang=en',
+                        'faction_id=>0'
                     ]))
-                .then(function(response) {
-                    return response.data.faction_list;
-                });
+                    .then(function(response) {
+                        var data = response.data.faction_list;
+                        var parsedData = [{
+                            'id': 0,
+                            'name': '-- All Factions --'
+                        }];
+                        angular.forEach(data, function(faction) {
+                            var parsedFaction = {
+                                'name': faction.name.en,
+                                'id': parseInt(faction.faction_id)
+                            };
+                            this.push(parsedFaction);
+                        }, parsedData);
+                        return parsedData;
+                    });
             };
 
             return {

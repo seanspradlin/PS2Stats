@@ -28,31 +28,27 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="sever" class="label label-default">Server</label>
-                <select name="server" id="server" class="form-control" ng-model="filterParams.world.world_id" ng-change="filterData()">
-                    <option value="0">-- All Servers --</option>
-                    <option ng-repeat="server in servers | orderBy:servers.sortOrder" value="{{server.world_id}}" ng-bind="server.name.en"></option>
+                <select name="server" id="server" class="form-control" ng-model="server" ng-options="server.id as server.name for server in servers | orderBy:servers.sortOrder">
                 </select>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="faction" class="label label-default">Faction</label>
-                <select name="faction" id="faction" class="form-control" ng-model="filterParams.faction.faction_id" ng-change="filterData()">
-                    <option value="0">-- All Factions --</option>
-                    <option ng-repeat="faction in factions | orderBy:factions.sortOrder" value="{{faction.faction_id}}" ng-bind="faction.name.en"></option>
+                <select name="faction" id="faction" class="form-control" ng-model="faction" ng-options="faction.id as faction.name for faction in factions | orderBy:factions.sortOrder">
                 </select>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label for="minLevel" class="label label-default">Min. Level</label>
-                <input type="number" name="minLevel" id="minLevel" class="form-control" ng-pattern="parameters.numbersFilter">
+                <input type="number" name="minLevel" id="minLevel" ng-model="minLevel" class="form-control">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label for="maxLevel" class="label label-default">Max. Level</label>
-                <input type="number" name="maxLevel" id="maxLevel" class="form-control" ng-pattern="parameters.numbersFilter">
+                <input type="number" name="maxLevel" id="maxLevel" ng-model="maxLevel" class="form-control">
             </div>
         </div>
     </form>
@@ -65,37 +61,37 @@
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <th ng-click="sort('playerList', 'name.first')">
+                            <th ng-click="sort('playerList', 'name')">
                                 Player&nbsp;
-                                <span ng-show="playerList.sortOrder == 'name.first'">
+                                <span ng-show="playerList.sortOrder == 'name'">
                                     <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
                                     <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
                                 </span>
                             </th>
-                            <th ng-click="sort('playerList', 'outfit.alias')">
+                            <th ng-click="sort('playerList', 'outfit')">
                                 Outfit&nbsp;
-                                <span ng-show="playerList.sortOrder == 'outfit.alias'">
+                                <span ng-show="playerList.sortOrder == 'outfit'">
                                     <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
                                     <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
                                 </span>
                             </th>
-                            <th ng-click="sort('playerList', 'faction.name.en')">
+                            <th ng-click="sort('playerList', 'faction')">
                                 Faction&nbsp;
-                                <span ng-show="playerList.sortOrder == 'faction.name.en'">
+                                <span ng-show="playerList.sortOrder == 'faction'">
                                     <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
                                     <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
                                 </span>
                             </th>
-                            <th ng-click="sort('playerList', 'battle_rank.value')">
+                            <th ng-click="sort('playerList', 'battle_rank')">
                                 Rank&nbsp;
-                                <span ng-show="playerList.sortOrder == 'battle_rank.value'">
+                                <span ng-show="playerList.sortOrder == 'battle_rank'">
                                     <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
                                     <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
                                 </span>
                             </th>
-                            <th ng-click="sort('playerList', 'world.name.en')">
+                            <th ng-click="sort('playerList', 'world')">
                                 Server&nbsp;
-                                <span ng-show="playerList.sortOrder == 'world.name.en'">
+                                <span ng-show="playerList.sortOrder == 'world'">
                                     <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
                                     <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
                                 </span>
@@ -110,16 +106,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in filteredPlayers | orderBy:playerList.sortOrder:playerList.reverse">
+                        <tr ng-repeat="player in players | orderBy:playerList.sortOrder:playerList.reverse | PlayerFilter:server:faction:minLevel:maxLevel">
                             <td>
-                                <a ng-href="#/player/{{player.name.first_lower}}" ng-bind="player.name.first"></a>
+                                <a ng-href="#/player/{{player.name}}" ng-bind="player.name"></a>
                             </td>
                             <td>
-                                <a ng-href="#/outfit/{{player.outfit.alias}}" ng-bind="player.outfit.alias"></a>
+                                <a ng-href="#/outfit/{{player.outfit}}" ng-bind="player.outfit"></a>
                             </td>
-                            <td ng-bind="player.faction.name.en"></td>
-                            <td ng-bind="player.battle_rank.value"></td>
-                            <td ng-bind="player.world.name.en"></td>
+                            <td ng-bind="player.faction"></td>
+                            <td ng-bind="player.battle_rank"></td>
+                            <td ng-bind="player.world"></td>
                             <td>
                                 <span class="text-danger" ng-show="player.online_status == 0">Offline</span>
                                 <span class="text-success" ng-show="player.online_status > 0">Online</span>

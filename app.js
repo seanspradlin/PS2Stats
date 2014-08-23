@@ -50,6 +50,7 @@
             };
         }
     ];
+    
     app.controller('BaseCtrl', BaseCtrl);
     app.controller('SearchFormCtrl', SearchFormCtrl);
 }());

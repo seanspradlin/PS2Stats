@@ -46,6 +46,14 @@
                     ]))
                     .then(function(response) {
                         var data = response.data.outfit_list;
+                        var parsedData = [];
+                        angular.forEach(data, function(outfit) {
+                            var parsedOutfit = {
+                                'name' : outfit.name,
+                                'alias' : outfit.alias,
+                                'member_count' : outfit.member_count
+                            };
+                        }, parsedData);
                         angular.forEach(data, function(outfit) {
                             outfit.member_count = parseInt(outfit.member_count);
                         });

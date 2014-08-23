@@ -1,12 +1,73 @@
 (function() {
-    var BaseSvc = ['$log',
-        function($log) {
+    var BaseSvc = ['$log', '$http',
+        function($log, $http) {
+
+            var data = {
+                'getFactions': function() {
+                    return $http.jsonp(urlBuilder.build('faction', [
+                            'c:limit=3',
+                            'user_selectable=1',
+                            'c:lang=en',
+                            'c:hide=image_id,image_path,image_set_id'
+                        ]))
+                        .then(function(response) {
+                            var data = response.data.faction_list;
+                            var factions = [];
+                            for (var i = 0; i < data.length; i++) {
+                                var faction = {
+                                    'name': data[i].name.en,
+                                    'tag': data[i].code_tag,
+                                    'id': parseInt(data[i].faction_id)
+                                };
+                                factions.push(faction);
+                            }
+                            return factions;
+                        });
+                },
+                'getServers': function() {
+                    return $http.jsonp(urlBuilder.build('world', [
+                            'c:limit=20',
+                            'c:lang=en',
+                            'state=online'
+                        ]))
+                        .then(function(response) {
+                            var data = response.data.world_list;
+                            var servers = [];
+                            for (var i = 0; i < data.length; i++) {
+                                var server = {
+                                    'name': data[i].name.en,
+                                    'id': parseInt(data[i].world_id)
+                                };
+                                servers.push(server);
+                            }
+                            return servers;
+                        });
+                },
+                'getTitles': function() {
+                    return $http.jsonp(urlBuilder.build('title', [
+                            'c:limit=200',
+                            'c:lang=en'
+                        ]))
+                        .then(function(response) {
+                            var data = response.data.title_list;
+                            var titles = [];
+                            for (var i = 0; i < data.length; i++) {
+                                var title = {
+                                    'name': data[i].name.en,
+                                    'id': parseInt(data[i].title_id)
+                                };
+                                titles.push(title);
+                            }
+                            return titles;
+                        });
+                }
+            };
 
             /*      ()==[::::::::::::> UTILITIES <::::::::::::]==()      */
 
             var utility = {
                 //Return an array of integers
-                range: function(low, high) {
+                'range': function(low, high) {
                     var array = [];
                     for (var i = low; i <= high; i++) {
                         array.push(i);
@@ -38,9 +99,9 @@
                 //Add commas to numbers
                 addCommas: function(nStr) {
                     nStr += '';
-                    x = nStr.split('.');
-                    x1 = x[0];
-                    x2 = x.length > 1 ? '.' + x[1] : '';
+                    var x = nStr.split('.');
+                    var x1 = x[0];
+                    var x2 = x.length > 1 ? '.' + x[1] : '';
                     var rgx = /(\d+)(\d{3})/;
                     while (rgx.test(x1)) {
                         x1 = x1.replace(rgx, '$1' + ',' + '$2');
@@ -61,7 +122,7 @@
                     schema = typeof schema !== 'undefined' ? schema : [];
                     var url = this.root + collection + this.suffix;
                     schema.forEach(function(element) {
-                        url += '&&' + element;
+                        url += '&' + element;
                     });
                     $log.info('GET: ' + url);
                     return url;
@@ -160,6 +221,7 @@
             };
 
             return {
+                'data': data,
                 'utility': utility,
                 'urlBuilder': urlBuilder,
                 'chartBuilder': chartBuilder

@@ -5,7 +5,6 @@
         function($scope, $routeParams, $log, PlayerSvc) {
             //Execute when player data received
             var onPlayerComplete = function(data) {
-                //Player Data
                 $scope.player = data;
             };
 

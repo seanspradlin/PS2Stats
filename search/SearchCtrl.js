@@ -2,8 +2,8 @@
     var app = angular.module('PS2Info');
 
     //Functionality for search box
-    var SearchCtrl = ['$scope', '$routeParams', '$log', 'SearchSvc',
-        function($scope, $routeParams, $log, SearchSvc) {
+    var SearchCtrl = ['$scope', '$routeParams', '$log', 'SearchSvc', 'BaseSvc',
+        function($scope, $routeParams, $log, SearchSvc, BaseSvc) {
 
             //Execute when player data received
             var onPlayersComplete = function(data) {
@@ -17,13 +17,21 @@
 
             //Execute when server data received
             var onServersComplete = function(data) {
-                $scope.servers = data;
+                var placeholder = [{
+                    'name': '-- All Servers --',
+                    'id': 0
+                }];
+                $scope.servers = placeholder.concat(data);
                 $scope.servers.sortOrder = 'name';
             };
 
             //Execute when faction data received
             var onFactionsComplete = function(data) {
-                $scope.factions = data;
+                var placeholder = [{
+                    'id': 0,
+                    'name': '-- All Factions --'
+                }];
+                $scope.factions = placeholder.concat(data);
                 $scope.factions.sortOrder = 'name';
             };
 
@@ -41,8 +49,8 @@
 
             SearchSvc.getPlayers($routeParams.searchterm).then(onPlayersComplete, onError);
             SearchSvc.getOutfits($routeParams.searchterm).then(onOutfitsComplete, onError);
-            SearchSvc.getServers().then(onServersComplete, onError);
-            SearchSvc.getFactions().then(onFactionsComplete, onError);
+            BaseSvc.data.getServers().then(onServersComplete, onError);
+            BaseSvc.data.getFactions().then(onFactionsComplete, onError);
 
             $scope.playerList = {
                 'sortOrder': 'name',

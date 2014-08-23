@@ -15,19 +15,98 @@
                         'c:join=outfit_member^on:character_id^inject_at:outfit(outfit^on:outfit_id^inject_at:details)'
                     ]))
                     .then(function(response) {
-                        return response.data.character_list[0];
+                        var data = response.data.character_list[0];
+                        var player = {
+                            'name': data.name.first,
+                            'id': data.character_id,
+                            'battle_rank': parseInt(data.battle_rank.value),
+                            'certs': {
+                                'available': parseInt(data.certs.available_points),
+                                'earned': parseInt(data.certs.earned_points),
+                                'spent': parseInt(data.certs.spent_points)
+                            },
+                            'faction': {
+                                'name': data.faction.name.en,
+                                'tag': data.faction.code_tag,
+                                'id': parseInt(data.faction.faction_id)
+                            },
+                            'isOnline': parseInt(data.online_status),
+                            'outfit': {
+                                'name': data.outfit.details.name,
+                                'tag': data.outfit.details.alias,
+                                'id': parseInt(data.outfit.outfit_id),
+                                'joined': data.outfit.member_since_date,
+                                'rank': data.outfit.rank
+                            },
+                            'created': Date.parse(data.times.creation_date),
+                            'timePlayed': parseInt(data.times.minutes_played),
+                            'title': data.title.name.en,
+                            'world': {
+                                'name': data.world.name.en,
+                                'id': parseInt(data.world.world_id)
+                            }
+                        };
+                        console.log(player);
+                        return player;
                     });
             };
 
             //Get a player's friends, returns object containing online and offline friends
             var getPlayerFriends = function(playerID) {
                 return $http.jsonp(BaseSvc.urlBuilder.build('characters_friend', [
-                        'character_id=' + playerID,
-                        'c:resolve=character_name',
-                        'c:tree=start:friend_list^field:online^list:1^prefix:online_'
+                        'c:resolve=character(name,battle_rank,faction_id,title_id,world_id)',
+                        'character_id=' + playerID
                     ]))
                     .then(function(response) {
-                        return response.data.characters_friend_list[0].friend_list;
+                        var data = response.data.characters_friend_list[0].friend_list;
+                        return BaseSvc.data.getFactions().then(function(factionsData) {
+                            var factions = [];
+                            factions = factionsData;
+                            return BaseSvc.data.getTitles().then(function(titlesData) {
+                                var titles = [];
+                                titles = titlesData;
+
+                                var findFaction = function(i) {
+                                    if (typeof data[i].faction_id !== 'undefined') {
+                                        for (var x = 0; x < factions.length; x++) {
+                                            if (factions[x].id === parseInt(data[i].faction_id)) {
+                                                return factions[x].name;
+                                            }
+                                        }
+                                    }
+                                };
+
+                                var findTitle = function(i) {
+                                    if (typeof data[i].title_id !== 'undefined') {
+                                        for (var x = 0; x < titles.length; x++) {
+                                            if (titles[x].id === parseInt(data[i].title_id)) {
+                                                return titles[x].name;
+                                            }
+                                        }
+                                    }
+                                };
+
+                                var friends = [];
+                                for (var i = 0; i < data.length; i++) {
+                                    var friend = {
+                                        'name': data[i].name.first,
+                                        'battle_rank': parseInt(data[i].battle_rank.value),
+                                        'isOnline': parseInt(data[i].online),
+                                        'faction': {
+                                            'id': parseInt(data[i].faction_id),
+                                            'name': findFaction(i)
+                                        },
+                                        'title': {
+                                            'id': parseInt(data[i].title_id),
+                                            'name': findTitle(i)
+                                        }
+                                    };
+                                    friends.push(friend);
+                                }
+                                return friends;
+                            });
+                        });
+
                     });
             };
 

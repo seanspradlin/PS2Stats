@@ -17,24 +17,24 @@
     <!-- Header -->
     <div class="row">
         <div class="col-md-6 text-left">
-            <h1 ng-bind-template="{{player.title.name.en}} {{player.name.first}}"></h1>
+            <h1 ng-bind-template="{{player.title}} {{player.name}}"></h1>
         </div>
         <div class="col-md-6 text-right">
-            <h2 ng-bind-template="{{player.faction.name.en}} :: {{player.world.name.en}}"></h2>
+            <h2 ng-bind-template="{{player.faction.name}} :: {{player.world.name}}"></h2>
         </div>
     </div>
 
     <!-- Info Bar -->
     <hr>
     <div class="row">
-        <div class="col-md-2 text-center" ng-bind-template="{{player.outfit.rank}} of {{player.outfit.details.name}}"></div>
-        <div class="col-md-2 text-center" ng-bind-template="Battle Rank: {{player.battle_rank.value}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="{{player.outfit.rank}} of {{player.outfit.name}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Battle Rank: {{player.battle_rank}}"></div>
         <div class="col-md-2 text-center" ng-bind-template="Score/Hour: {{player.sph}}"></div>
         <div class="col-md-2 text-center" ng-bind-template="Kill/Death Ratio: {{player.kdr}}"></div>
-        <div class="col-md-2 text-center" ng-bind-template="Created: {{player.created}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Created: {{player.created | date:'mediumDate'}}"></div>
         <div class="col-md-2 text-center">Status:
-            <span class="text-danger" ng-show="player.online_status == 0">Offline</span>
-            <span class="text-success" ng-show="player.online_status > 0">Online</span>
+            <span class="text-danger" ng-show="player.isOnline === 0">Offline</span>
+            <span class="text-success" ng-show="player.isOnline === 1">Online</span>
         </div>
     </div>
     <hr>

@@ -75,59 +75,9 @@
                     });
             };
 
-            //Return a list of servers
-            var getServers = function() {
-                return $http.jsonp(BaseSvc.urlBuilder.build('world', [
-                        'c:limit=20',
-                        'c:lang=en',
-                        'state=online'
-                    ]))
-                    .then(function(response) {
-                        var data = response.data.world_list;
-                        var parsedData = [{
-                            'name': '-- All Servers --',
-                            'id': 0
-                        }];
-                        angular.forEach(data, function(server) {
-                            var parsedServer = {
-                                'name': server.name.en,
-                                'id': parseInt(server.world_id)
-                            };
-                            this.push(parsedServer);
-                        }, parsedData);
-                        return parsedData;
-                    });
-            };
-
-            //Return a list of factions
-            var getFactions = function() {
-                return $http.jsonp(BaseSvc.urlBuilder.build('faction', [
-                        'c:limit=20',
-                        'c:lang=en',
-                        'faction_id=>0'
-                    ]))
-                    .then(function(response) {
-                        var data = response.data.faction_list;
-                        var parsedData = [{
-                            'id': 0,
-                            'name': '-- All Factions --'
-                        }];
-                        angular.forEach(data, function(faction) {
-                            var parsedFaction = {
-                                'name': faction.name.en,
-                                'id': parseInt(faction.faction_id)
-                            };
-                            this.push(parsedFaction);
-                        }, parsedData);
-                        return parsedData;
-                    });
-            };
-
             return {
                 'getPlayers': getPlayers,
-                'getOutfits': getOutfits,
-                'getServers': getServers,
-                'getFactions': getFactions
+                'getOutfits': getOutfits
             };
         }
     ];

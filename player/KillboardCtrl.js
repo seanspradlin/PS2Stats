@@ -10,7 +10,7 @@
 
                     //Set color value
                     $scope.killboard.forEach(function(value) {
-                        value.color = value.attacker_character_id === id ? '' : 'danger';
+                        value.color = value.isDeath ? 'danger' : '';
                     });
                 }, onError);
             };
@@ -24,9 +24,11 @@
             //Execute when character ID is loaded
             $scope.$watch('player.id', function(id) {
                 if (typeof id !== 'undefined') {
-                    loadKillboard(id, 20);
+                    loadKillboard(id, $scope.killboardLength);
                 }
             });
+
+            $scope.killboardLength = 25;
         }
     ];
     app.controller('KillboardCtrl', KillboardCtrl);

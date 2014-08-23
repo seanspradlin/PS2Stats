@@ -40,7 +40,7 @@
                             },
                             'created': Date.parse(data.times.creation_date),
                             'timePlayed': parseInt(data.times.minutes_played),
-                            'title': data.title.name.en,
+                            'title': typeof data.title !== 'undefined' ? data.title.name.en : '',
                             'world': {
                                 'name': data.world.name.en,
                                 'id': parseInt(data.world.world_id)
@@ -128,25 +128,27 @@
                         for (var i = 0; i < data.length; i++) {
                             var kill = {
                                 'attacker': {
-                                    'name': data[i].name.first,
+                                    'name': data[i].attacker.name.first,
                                     'faction': {
                                         'name': data[i].attacker_loadout.faction.name.en,
                                         'tag': data[i].attacker_loadout.faction.code_tag,
                                         'id': parseInt(data[i].attacker_loadout.faction_id)
                                     },
-                                    'vehicle': data[i].vehicle.name.en,
-                                    'weapon': data[i].weapon.name.en
+                                    'vehicle': typeof data[i].vehicle !== 'undefined' ? data[i].vehicle.name.en : '',
+                                    'weapon': typeof data[i].weapon !== 'undefined' ? data[i].weapon.name.en : ''
                                 },
                                 'victim': {
                                     'name': data[i].character.name.first,
                                     'faction': {
-                                        'name':data[i].character.faction.name.en,
+                                        'name':data[i].character_loadout.faction.name.en,
                                         'tag': data[i].character_loadout.faction.code_tag,
                                         'id': parseInt(data[i].character_loadout.faction_id)
                                     }
                                 },
                                 'isHeadshot': parseInt(data[i].is_headshot),
-                                'isCritical': parseInt(data[i].is_critical)
+                                'isCritical': parseInt(data[i].is_critical),
+                                'isSuicide': data[i].attacker_character_id === data[i].character_id,
+                                'isDeath': data[i].character_id === playerID
                             };
                             killboard.push(kill);
                         }

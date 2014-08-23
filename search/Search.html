@@ -25,14 +25,14 @@
 
     <!-- Parameters -->
     <form name="parameters" class="row" role="refine">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="form-group">
                 <label for="sever" class="label label-default">Server</label>
                 <select name="server" id="server" class="form-control" ng-model="server" ng-options="server.id as server.name for server in servers | orderBy:servers.sortOrder">
                 </select>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="form-group">
                 <label for="faction" class="label label-default">Faction</label>
                 <select name="faction" id="faction" class="form-control" ng-model="faction" ng-options="faction.id as faction.name for faction in factions | orderBy:factions.sortOrder">

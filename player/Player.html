@@ -68,6 +68,31 @@
             </div>
         </section>
 
+        <!-- Killboard -->
+        <section class="col-md-6" id="killboard" ng-controller="KillboardCtrl">
+            <h3>Killboard</h3>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Killer</td>
+                            <td>Victim</td>
+                            <td>Weapon</td>
+                            <td>Vehicle</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="kill in killboard" ng-class="kill.color">
+                            <td ng-bind-template="{{kill.attacker.faction.tag}} {{kill.attacker.name}}"></td>
+                            <td ng-bind-template="{{kill.victim.faction.tag}} {{kill.victim.name}}"></td>
+                            <td ng-bind="kill.attacker.weapon"></td>
+                            <td ng-bind="kill.attacker.vehicle"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <div class="col-md-6">
             <!-- Stats -->
             <section id="stats" ng-controller="PlayerHistoryCtrl">
@@ -108,31 +133,6 @@
                         <div google-chart chart="timeMonth"></div>
                     </tab>
                 </tabset>
-            </section>
-
-            <!-- Killboard -->
-            <section id="killboard" ng-controller="KillboardCtrl">
-                <h3>Killboard</h3>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <td>Killer</td>
-                                <td>Victim</td>
-                                <td>Weapon</td>
-                                <td>Vehicle</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="kill in killboard" ng-class="kill.color">
-                                <td ng-bind-template="{{kill.attacker_loadout.faction.code_tag}} {{kill.attacker.name.first}}"></td>
-                                <td ng-bind-template="{{kill.character_loadout.faction.code_tag}} {{kill.character.name.first}}"></td>
-                                <td ng-bind="kill.weapon.name.en"></td>
-                                <td ng-bind="kill.vehicle.name.en"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </section>
         </div>
     </div>

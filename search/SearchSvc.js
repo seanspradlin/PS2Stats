@@ -48,16 +48,30 @@
                         var data = response.data.outfit_list;
                         var parsedData = [];
                         angular.forEach(data, function(outfit) {
-                            var parsedOutfit = {
-                                'name' : outfit.name,
-                                'alias' : outfit.alias,
-                                'member_count' : outfit.member_count
-                            };
+                            return $http.jsonp(BaseSvc.urlBuilder.build('character', [
+                                    'character_id=' + outfit.leader_character_id,
+                                    'c:show=name,faction_id,character_id,world_id',
+                                    'c:resolve=world,faction',
+                                    'c:join=faction^on:faction_id^inject_at:faction',
+                                    'c:lang=en',
+                                    'c:join=world^on:world_id^inject_at:world^hide:state'
+                                ]))
+                                .then(function(response) {
+                                    var leader = response.data.character_list[0];
+                                    var parsedOutfit = {
+                                        'name': outfit.name,
+                                        'alias': outfit.alias,
+                                        'member_count': outfit.member_count,
+                                        'faction': leader.faction.name.en,
+                                        'faction_id': parseInt(leader.faction_id),
+                                        'world': leader.world.name.en,
+                                        'world_id': parseInt(leader.world_id),
+                                        'leader': leader.name.first
+                                    };
+                                    parsedData.push(parsedOutfit);
+                                });
                         }, parsedData);
-                        angular.forEach(data, function(outfit) {
-                            outfit.member_count = parseInt(outfit.member_count);
-                        });
-                        return data;
+                        return parsedData;
                     });
             };
 

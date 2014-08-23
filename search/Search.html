@@ -53,91 +53,6 @@
         </div>
     </form>
 
-    <!-- Players -->
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Players</h2>
-            <div class="table-responsive" ng-show="players.length > 0">
-                <table class="table table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th ng-click="sort('playerList', 'name')">
-                                Player&nbsp;
-                                <span ng-show="playerList.sortOrder == 'name'">
-                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
-                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
-                                </span>
-                            </th>
-                            <th ng-click="sort('playerList', 'outfit')">
-                                Outfit&nbsp;
-                                <span ng-show="playerList.sortOrder == 'outfit'">
-                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
-                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
-                                </span>
-                            </th>
-                            <th ng-click="sort('playerList', 'faction')">
-                                Faction&nbsp;
-                                <span ng-show="playerList.sortOrder == 'faction'">
-                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
-                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
-                                </span>
-                            </th>
-                            <th ng-click="sort('playerList', 'battle_rank')">
-                                Rank&nbsp;
-                                <span ng-show="playerList.sortOrder == 'battle_rank'">
-                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
-                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
-                                </span>
-                            </th>
-                            <th ng-click="sort('playerList', 'world')">
-                                Server&nbsp;
-                                <span ng-show="playerList.sortOrder == 'world'">
-                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
-                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
-                                </span>
-                            </th>
-                            <th ng-click="sort('playerList', 'online_status')">
-                                Status&nbsp;
-                                <span ng-show="playerList.sortOrder == 'online_status'">
-                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
-                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="player in players | orderBy:playerList.sortOrder:playerList.reverse | PlayerFilter:server:faction:minLevel:maxLevel">
-                            <td>
-                                <a ng-href="#/player/{{player.name}}" ng-bind="player.name"></a>
-                            </td>
-                            <td>
-                                <a ng-href="#/outfit/{{player.outfit}}" ng-bind="player.outfit"></a>
-                            </td>
-                            <td ng-bind="player.faction"></td>
-                            <td ng-bind="player.battle_rank"></td>
-                            <td ng-bind="player.world"></td>
-                            <td>
-                                <span class="text-danger" ng-show="player.online_status == 0">Offline</span>
-                                <span class="text-success" ng-show="player.online_status > 0">Online</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr class="info">
-                            <td colspan="6">
-                                Displaying&nbsp;
-                                <span ng-bind="players.length"></span>&nbsp;results.
-                                <span ng-show="players.length == 100">Refine search for more results.</span>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <p ng-show="players.length == 0">No results found.</p>
-        </div>
-    </div>
-
-
     <!-- Outfits -->
     <div class="row">
         <div class="col-md-12">
@@ -167,24 +82,48 @@
                                     <i class="fa fa-angle-down" ng-show="!outfitList.reverse"></i>
                                 </span>
                             </th>
-                            <th>Server</th>
+                            <th ng-click="sort('outfitList', 'leader')">
+                                Leader&nbsp;
+                                <span ng-show="outfitList.sortOrder == 'leader'">
+                                    <i class="fa fa-angle-up" ng-show="outfitList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!outfitList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('outfitList', 'faction')">
+                                Faction&nbsp;
+                                <span ng-show="outfitList.sortOrder == 'faction'">
+                                    <i class="fa fa-angle-up" ng-show="outfitList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!outfitList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('outfitList', 'world')">
+                                Server&nbsp;
+                                <span ng-show="outfitList.sortOrder == 'world'">
+                                    <i class="fa fa-angle-up" ng-show="outfitList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!outfitList.reverse"></i>
+                                </span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="outfit in outfits | orderBy:outfitList.sortOrder:outfitList.reverse">
+                        <tr ng-repeat="outfit in filteredOutfits = (outfits | orderBy:outfitList.sortOrder:outfitList.reverse | SearchFilter:server:faction)">
                             <td>
                                 <a ng-href="#/outfit/{{outfit.alias}}" ng-bind="outfit.name"></a>
                             </td>
                             <td ng-bind="outfit.alias"></td>
                             <td ng-bind="outfit.member_count"></td>
-                            <td></td>
+                            <td>
+                                <a ng-href="#/player/{{outfit.leader}}" ng-bind="outfit.leader"></a>
+                            </td>
+                            <td ng-bind="outfit.faction"></td>
+                            <td ng-bind="outfit.world"></td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr class="info">
                             <td colspan="6">
                                 Displaying&nbsp;
-                                <span ng-bind="outfits.length"></span>&nbsp;results.
+                                <span ng-bind="filteredOutfits.length"></span>&nbsp;results.
                                 <span ng-show="outfits.length == 100">Refine search for more results.</span>
                             </td>
                         </tr>
@@ -192,6 +131,90 @@
                 </table>
             </div>
             <p ng-show="outfits.length == 0">No results found.</p>
+        </div>
+    </div>
+
+    <!-- Players -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Players</h2>
+            <div class="table-responsive" ng-show="players.length > 0">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th ng-click="sort('playerList', 'name')">
+                                Name&nbsp;
+                                <span ng-show="playerList.sortOrder == 'name'">
+                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('playerList', 'battle_rank')">
+                                Rank&nbsp;
+                                <span ng-show="playerList.sortOrder == 'battle_rank'">
+                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('playerList', 'outfit')">
+                                Outfit&nbsp;
+                                <span ng-show="playerList.sortOrder == 'outfit'">
+                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('playerList', 'faction')">
+                                Faction&nbsp;
+                                <span ng-show="playerList.sortOrder == 'faction'">
+                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('playerList', 'world')">
+                                Server&nbsp;
+                                <span ng-show="playerList.sortOrder == 'world'">
+                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('playerList', 'online_status')">
+                                Status&nbsp;
+                                <span ng-show="playerList.sortOrder == 'online_status'">
+                                    <i class="fa fa-angle-up" ng-show="playerList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!playerList.reverse"></i>
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="player in filteredPlayers = (players | orderBy:playerList.sortOrder:playerList.reverse | SearchFilter:server:faction:minLevel:maxLevel)">
+                            <td>
+                                <a ng-href="#/player/{{player.name}}" ng-bind="player.name"></a>
+                            </td>
+                            <td ng-bind="player.battle_rank"></td>
+                            <td>
+                                <a ng-href="#/outfit/{{player.outfit}}" ng-bind="player.outfit"></a>
+                            </td>
+                            <td ng-bind="player.faction"></td>
+                            <td ng-bind="player.world"></td>
+                            <td>
+                                <span class="text-danger" ng-show="player.online_status == 0">Offline</span>
+                                <span class="text-success" ng-show="player.online_status > 0">Online</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="info">
+                            <td colspan="6">
+                                Displaying&nbsp;
+                                <span ng-bind="filteredPlayers.length"></span>&nbsp;results.
+                                <span ng-show="players.length == 100">Refine search for more results.</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <p ng-show="players.length == 0">No results found.</p>
         </div>
     </div>
 </div>

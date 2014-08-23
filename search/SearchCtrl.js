@@ -2,8 +2,8 @@
     var app = angular.module('PS2Info');
 
     //Functionality for search box
-    var SearchCtrl = ['$scope', '$routeParams', '$log', '$filter', 'SearchSvc',
-        function($scope, $routeParams, $log, $filter, SearchSvc) {
+    var SearchCtrl = ['$scope', '$routeParams', '$log', 'SearchSvc',
+        function($scope, $routeParams, $log, SearchSvc) {
 
             //Execute when player data received
             var onPlayersComplete = function(data) {
@@ -54,10 +54,10 @@
                 'reverse': false
             };
 
-            $scope.server = 0,
-            $scope.faction = 0,
-            $scope.minLevel = 1,
-            $scope.maxLevel = 100
+            $scope.server = 0;
+            $scope.faction = 0;
+            $scope.minLevel = 1;
+            $scope.maxLevel = 100;
         }
     ];
     app.controller('SearchCtrl', SearchCtrl);

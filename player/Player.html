@@ -41,35 +41,34 @@
 
     <div class="row">
         <!-- Friends -->
-        <section class="col-md-2 col-md-push-10" id="friends" ng-controller="FriendsCtrl">
+        <section class="col-md-6" id="friends" ng-controller="FriendsCtrl">
             <h3>Friends</h3>
-            <accordion>
-                <accordion-group is-open="friends.online.status.isOpen" ng-show="friends.online.status.visible">
-                    <accordion-heading>
-                        <span ng-bind="friends.online.length"></span>&nbsp;Online
-                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': friends.online.status.isOpen, 'glyphicon-chevron-right': !friends.online.status.isOpen}"></i>
-                    </accordion-heading>
-                    <ul class="nav nav-pills nav-stacked">
-                        <li ng-repeat="friend in friends.online | orderBy:friend.online.status.order">
-                            <a ng-href='#/player/{{friend.name.first_lower}}' ng-bind="friend.name.first"></a>
-                        </li>
-                    </ul>
-                </accordion-group>
-                <accordion-group is-open="friends.offline.status.isOpen" ng-show="friends.offline.status.visible">
-                    <accordion-heading>
-                        <span ng-bind="friends.offline.length"></span>&nbsp;Offline
-                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': friends.offline.status.isOpen, 'glyphicon-chevron-right': !friends.offline.status.isOpen}"></i>
-                    </accordion-heading>
-                    <ul class="nav nav-pills nav-stacked">
-                        <li ng-repeat="friend in friends.offline">
-                            <a ng-href='#/player/{{friend.name.first_lower}}' ng-bind="friend.name.first"></a>
-                        </li>
-                    </ul>
-                </accordion-group>
-            </accordion>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Rank</th>
+                            <th>Faction</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="friend in friends | orderBy:friends.sort.order:friends.sort.reverse">
+                            <td><a ng-href="#/player/{{friend.name}}/" ng-bind-template="{{friend.title.name}} {{friend.name}}"></td>
+                            <td ng-bind="friend.battle_rank"></td>
+                            <td ng-bind="friend.faction.name"></td>
+                            <td>
+                                <span class="text-success" ng-show="friend.isOnline">Online</span>
+                                <span class="text-danger" ng-show="!friend.isOnline">Offline</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
-        <div class="col-md-10 col-md-pull-2">
+        <div class="col-md-6">
             <!-- Stats -->
             <section id="stats" ng-controller="PlayerHistoryCtrl">
                 <h3>Stats</h3>

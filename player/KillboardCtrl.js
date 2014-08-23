@@ -4,13 +4,13 @@
     var KillboardCtrl = ['$scope', '$log', 'PlayerSvc',
         function($scope, $log, PlayerSvc) {
             //Load killboard
-            var loadKillboard = function(playerId, length) {
-                PlayerSvc.getPlayerKillboard(playerId, length).then(function(data) {
+            var loadKillboard = function(id, length) {
+                PlayerSvc.getPlayerKillboard(id, length).then(function(data) {
                     $scope.killboard = data;
 
                     //Set color value
                     $scope.killboard.forEach(function(value) {
-                        value.color = value.attacker_character_id === playerId ? '' : 'danger';
+                        value.color = value.attacker_character_id === id ? '' : 'danger';
                     });
                 }, onError);
             };
@@ -22,9 +22,9 @@
             };
 
             //Execute when character ID is loaded
-            $scope.$watch('player.character_id', function(playerid) {
-                if (typeof playerid !== 'undefined') {
-                    loadKillboard(playerid, 20);
+            $scope.$watch('player.id', function(id) {
+                if (typeof id !== 'undefined') {
+                    loadKillboard(id, 20);
                 }
             });
         }

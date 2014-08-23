@@ -46,7 +46,6 @@
                                 'id': parseInt(data.world.world_id)
                             }
                         };
-                        console.log(player);
                         return player;
                     });
             };
@@ -124,7 +123,34 @@
                         'c:join=type:vehicle^on:attacker_vehicle_id^to:vehicle_id^inject_at:vehicle^show:name.en'
                     ]))
                     .then(function(response) {
-                        return response.data.characters_event_list;
+                        var data = response.data.characters_event_list;
+                        var killboard = [];
+                        for (var i = 0; i < data.length; i++) {
+                            var kill = {
+                                'attacker': {
+                                    'name': data[i].name.first,
+                                    'faction': {
+                                        'name': data[i].attacker_loadout.faction.name.en,
+                                        'tag': data[i].attacker_loadout.faction.code_tag,
+                                        'id': parseInt(data[i].attacker_loadout.faction_id)
+                                    },
+                                    'vehicle': data[i].vehicle.name.en,
+                                    'weapon': data[i].weapon.name.en
+                                },
+                                'victim': {
+                                    'name': data[i].character.name.first,
+                                    'faction': {
+                                        'name':data[i].character.faction.name.en,
+                                        'tag': data[i].character_loadout.faction.code_tag,
+                                        'id': parseInt(data[i].character_loadout.faction_id)
+                                    }
+                                },
+                                'isHeadshot': parseInt(data[i].is_headshot),
+                                'isCritical': parseInt(data[i].is_critical)
+                            };
+                            killboard.push(kill);
+                        }
+                        return killboard;
                     });
             };
 

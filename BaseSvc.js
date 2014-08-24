@@ -159,11 +159,7 @@
                 //operation: operation to be performed
                 mergeDataObjects: function(data1, data2, operation) {
                     var result = [];
-<<<<<<< HEAD
                     for (var i = 0; i < data1.length; i++) {
-=======
-                    for (var i in data1) {
->>>>>>> 7f2647e902dad7e10a4cfe8d3f18d71f2d3c7e68
                         result.push(utility.calculate(data1[i], data2[i], operation));
                     }
                     return result;

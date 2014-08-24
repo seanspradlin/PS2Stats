@@ -15,12 +15,9 @@
                     };
 
                     //Pagination logic
-                    $scope.numberOfPages = function() {
-                        return Math.ceil(($scope.friends.length) / $scope.pageSize);
-                    };
-                    $scope.currentPage = 0;
+                    $scope.currentPage = 1;
                     $scope.pageSize = 25;
-                    $scope.numberOfPages();
+                    $scope.numberOfPages = Math.ceil(($scope.friends.length) / $scope.pageSize);
                 }, onError);
             };
 

@@ -31,13 +31,13 @@
                                 'id': parseInt(data.faction.faction_id)
                             },
                             'isOnline': parseInt(data.online_status),
-                            'outfit': {
+                            'outfit': (typeof data.outfit !== 'undefined') ? {
                                 'name': data.outfit.details.name,
                                 'tag': data.outfit.details.alias,
                                 'id': parseInt(data.outfit.outfit_id),
                                 'joined': data.outfit.member_since_date,
                                 'rank': data.outfit.rank
-                            },
+                            } : {},
                             'created': Date.parse(data.times.creation_date),
                             'timePlayed': parseInt(data.times.minutes_played),
                             'title': typeof data.title !== 'undefined' ? data.title.name.en : '',

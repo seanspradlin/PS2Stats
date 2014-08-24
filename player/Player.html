@@ -27,7 +27,8 @@
     <!-- Info Bar -->
     <hr>
     <div class="row">
-        <div class="col-md-2 text-center" ng-bind-template="{{player.outfit.rank}} of {{player.outfit.name}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="{{player.outfit.rank}} of {{player.outfit.name}}" ng-show="player.outfit.name"></div>
+        <div class="col-md-2" ng-show="!player.outfit.name"></div>
         <div class="col-md-2 text-center" ng-bind-template="Battle Rank: {{player.battle_rank}}"></div>
         <div class="col-md-2 text-center" ng-bind-template="Score/Hour: {{player.sph}}"></div>
         <div class="col-md-2 text-center" ng-bind-template="Kill/Death Ratio: {{player.kdr}}"></div>
@@ -81,16 +82,18 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Title</th>
                             <th>Rank</th>
                             <th>Faction</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="friend in friends | orderBy:friends.sort.order:friends.sort.reverse | startFrom:currentPage*pageSize | limitTo:pageSize">
+                        <tr ng-repeat="friend in friends | orderBy:friends.sort.order:friends.sort.reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
                             <td>
-                                <a ng-href="#/player/{{friend.name}}/" ng-bind-template="{{friend.title.name}} {{friend.name}}">
+                                <a ng-href="#/player/{{friend.name}}/" ng-bind="friend.name">
                             </td>
+                            <td ng-bind="friend.title.name"></td>
                             <td ng-bind="friend.battle_rank"></td>
                             <td ng-bind="friend.faction.name"></td>
                             <td>
@@ -101,13 +104,7 @@
                     </tbody>
                 </table>
             </div>
-            <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-                Previous
-            </button>
-            {{currentPage+1}}/{{numberOfPages()}}
-            <button ng-disabled="currentPage >= friends.length/pageSize - 1" ng-click="currentPage=currentPage+1">
-                Next
-            </button>
+            <pagination ng-show="friends.length > pageSize" total-items="friends.length" items-per-page="pageSize" ng-model="currentPage" class="pagination-sm"></pagination>
         </section>
 
         <!-- Killboard -->

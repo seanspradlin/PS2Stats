@@ -140,7 +140,7 @@
                                 'victim': {
                                     'name': data[i].character.name.first,
                                     'faction': {
-                                        'name':data[i].character_loadout.faction.name.en,
+                                        'name': data[i].character_loadout.faction.name.en,
                                         'tag': data[i].character_loadout.faction.code_tag,
                                         'id': parseInt(data[i].character_loadout.faction_id)
                                     }
@@ -156,30 +156,6 @@
                     });
             };
 
-            //Gets specific player stats, stats separated by comma, ie. 'kills,deaths'
-            var getPlayerStat = function(playerID, stat) {
-                return $http.jsonp(BaseSvc.urlBuilder.build('characters_stat', [
-                        'character_id=' + playerID,
-                        'stat_name=' + stat,
-                        'c:limit=20',
-                        'c:tree=stat_name'
-                    ]))
-                    .then(function(response) {
-                        return response.data.characters_stat_list[0];
-                    });
-            };
-            //Gets faction-specific player stats, stats separated by comma, ie. 'kills,deaths'
-            var getPlayerStatByFaction = function(playerID, stat) {
-                return $http.jsonp(BaseSvc.urlBuilder.build('characters_stat_by_faction', [
-                        'character_id=' + playerID,
-                        'stat_name=' + stat,
-                        'c:limit=20',
-                        'c:tree=stat_name'
-                    ]))
-                    .then(function(response) {
-                        return response.data.characters_stat_by_faction_list[0];
-                    });
-            };
             //Gets timeline of specific player stats, stats separated by comma, ie. 'kills,deaths'
             var getPlayerStatHistory = function(playerID, stat) {
                 return $http.jsonp(BaseSvc.urlBuilder.build('characters_stat_history', [
@@ -189,7 +165,23 @@
                         'c:tree=stat_name'
                     ]))
                     .then(function(response) {
-                        return response.data.characters_stat_history_list[0];
+                        var data = response.data.characters_stat_history_list[0];
+                        var parent = {};
+                        angular.forEach(data, function(value, key) {
+                            var child = {};
+                            angular.forEach(value, function(value, key) {
+                                if (key === 'day' || key === 'week' || key === 'month') {
+                                    var grandchild = [];
+                                    angular.forEach(value, function(value) {
+                                        grandchild.push(parseInt(value));
+                                    });
+                                    this[key] = grandchild;
+                                }
+                            }, child);
+                            child.allTime = parseInt(value.all_time);
+                            this[key] = child;
+                        }, parent);
+                        return (parent);
                     });
             };
 
@@ -197,8 +189,6 @@
                 'getPlayer': getPlayer,
                 'getPlayerFriends': getPlayerFriends,
                 'getPlayerKillboard': getPlayerKillboard,
-                'getPlayerStat': getPlayerStat,
-                'getPlayerStatByFaction': getPlayerStatByFaction,
                 'getPlayerStatHistory': getPlayerStatHistory
             };
         }

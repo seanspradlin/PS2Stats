@@ -557,7 +557,7 @@
             };
 
             //Execute when character ID is loaded
-            $scope.$watch('player.character_id', function(playerid) {
+            $scope.$watch('player.id', function(playerid) {
                 if (typeof playerid !== 'undefined') {
                     loadHistory(playerid, 20);
                 }

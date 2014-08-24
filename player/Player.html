@@ -40,8 +40,41 @@
     <hr>
 
     <div class="row">
+
+        <!-- Stats -->
+        <section id="stats" class="col-md-12" ng-controller="PlayerHistoryCtrl">
+            <h3>Stats</h3>
+            <tabset>
+                <!-- Day -->
+                <tab heading="Day" active="true" select="loadDay()">
+                    <div google-chart chart="charts.kdDay"></div>
+                    <div google-chart chart="charts.kdrDay"></div>
+                    <div google-chart chart="charts.certsDay"></div>
+                    <div google-chart chart="charts.sphDay"></div>
+                    <div google-chart chart="charts.timeDay"></div>
+                </tab>
+
+                <!-- Week -->
+                <tab heading="Week" select="loadWeek()">
+                    <div google-chart chart="charts.kdWeek"></div>
+                    <div google-chart chart="charts.kdrWeek"></div>
+                    <div google-chart chart="charts.certsWeek"></div>
+                    <div google-chart chart="charts.sphWeek"></div>
+                    <div google-chart chart="charts.timeWeek"></div>
+                </tab>
+
+                <!-- Month -->
+                <tab heading="Month" select="loadMonth()">
+                    <div google-chart chart="charts.kdMonth"></div>
+                    <div google-chart chart="charts.kdrMonth"></div>
+                    <div google-chart chart="charts.certsMonth"></div>
+                    <div google-chart chart="charts.sphMonth"></div>
+                    <div google-chart chart="charts.timeMonth"></div>
+            </tabset>
+        </section>
+
         <!-- Friends -->
-        <section class="col-md-6" id="friends" ng-controller="FriendsCtrl">
+        <section id="friends" class="col-md-6" ng-controller="FriendsCtrl">
             <h3>Friends</h3>
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
@@ -55,7 +88,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="friend in friends | orderBy:friends.sort.order:friends.sort.reverse">
-                            <td><a ng-href="#/player/{{friend.name}}/" ng-bind-template="{{friend.title.name}} {{friend.name}}"></td>
+                            <td>
+                                <a ng-href="#/player/{{friend.name}}/" ng-bind-template="{{friend.title.name}} {{friend.name}}">
+                            </td>
                             <td ng-bind="friend.battle_rank"></td>
                             <td ng-bind="friend.faction.name"></td>
                             <td>
@@ -69,7 +104,7 @@
         </section>
 
         <!-- Killboard -->
-        <section class="col-md-6" id="killboard" ng-controller="KillboardCtrl">
+        <section id="killboard" class="col-md-6" ng-controller="KillboardCtrl">
             <h3>Killboard</h3>
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -92,48 +127,5 @@
                 </table>
             </div>
         </section>
-
-        <div class="col-md-6">
-            <!-- Stats -->
-            <section id="stats" ng-controller="PlayerHistoryCtrl">
-                <h3>Stats</h3>
-                <tabset>
-                    <!-- Kill/Deaths -->
-                    <tab heading="Kills/Deaths" active="true" select="kdLoad()">
-                        <div google-chart chart="kdDay"></div>
-                        <div google-chart chart="kdWeek"></div>
-                        <div google-chart chart="kdMonth"></div>
-                    </tab>
-
-                    <!-- Kill/Death Ratio -->
-                    <tab heading="Kill/Death Ratio" select="kdrLoad()">
-                        <div google-chart chart="kdrDay"></div>
-                        <div google-chart chart="kdrWeek"></div>
-                        <div google-chart chart="kdrMonth"></div>
-                    </tab>
-
-                    <!-- Certs -->
-                    <tab heading="Certs" select="certsLoad()">
-                        <div google-chart chart="certsDay"></div>
-                        <div google-chart chart="certsWeek"></div>
-                        <div google-chart chart="certsMonth"></div>
-                    </tab>
-
-                    <!-- Score Per Hour -->
-                    <tab heading="Score Per Hour" select="sphLoad()">
-                        <div google-chart chart="sphDay"></div>
-                        <div google-chart chart="sphWeek"></div>
-                        <div google-chart chart="sphMonth"></div>
-                    </tab>
-
-                    <!-- Time Played -->
-                    <tab heading="Time Played" select="timeLoad()">
-                        <div google-chart chart="timeDay"></div>
-                        <div google-chart chart="timeWeek"></div>
-                        <div google-chart chart="timeMonth"></div>
-                    </tab>
-                </tabset>
-            </section>
-        </div>
     </div>
 </div>

@@ -153,16 +153,14 @@
                     return month;
                 },
 
-                //Perform an operation between two repeating objects
+                //Perform an operation between two arrays
                 //data1: first data object
                 //data2: second data object
                 //operation: operation to be performed
                 mergeDataObjects: function(data1, data2, operation) {
-                    var result = {};
-                    for (var i in data1) {
-                        if (data1.hasOwnProperty(i) && data2.hasOwnProperty(i)) {
-                            result[i] = utility.calculate(data1[i], data2[i], operation);
-                        }
+                    var result = [];
+                    for (var i = 0; i < data1.length; i++) {
+                        result.push(utility.calculate(data1[i], data2[i], operation));
                     }
                     return result;
                 },
@@ -172,41 +170,24 @@
                 //value: the value of the operation
                 //operation: the type of operation
                 calculateDataObject: function(data, value, operation) {
-                    var result = {};
-                    for (var i in data) {
-                        if (data.hasOwnProperty(i)) {
-                            result[i] = utility.calculate(data[i], value, operation);
-                        }
+                    var result = [];
+                    for (var i = 0; i < data.length; i++) {
+                        result.push(utility.calculate(data[i], value, operation));
                     }
                     return result;
                 },
 
                 //Build row data for chartBuilder
-                //columns: array of values to label the columns
                 //dataArray: array of data objects to iterate through
-                buildData: function(columns, dataArray) {
-                    var convertJsonToArray = function(data) {
-                        var result = [];
-                        for (var i in data) {
-                            if (data.hasOwnProperty(i)) {
-                                result.push(data[i]);
-                            }
-                        }
-                        return result;
-                    };
-
-                    var data = [];
-                    dataArray.forEach(function(value) {
-                        data.push(convertJsonToArray(value));
-                    });
-
+                buildData: function(dataArray) {
+                    var columns = utility.range(1, dataArray[0].length);
                     var array = [];
                     columns.forEach(function(value, index) {
                         var columnArray = [];
                         columnArray.push({
                             v: value
                         });
-                        data.forEach(function(value) {
+                        dataArray.forEach(function(value) {
                             columnArray.push({
                                 v: value[index]
                             });

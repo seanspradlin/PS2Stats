@@ -14,7 +14,8 @@
                 $log.error('PlayerCtrl: ' + reason);
             };
 
-            PlayerSvc.getPlayer($routeParams.playername).then(onPlayerComplete, onError);
+            PlayerSvc.getPlayer($routeParams.playername)
+                .then(onPlayerComplete, onError);
         }
     ];
     app.controller('PlayerCtrl', PlayerCtrl);

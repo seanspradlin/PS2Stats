@@ -58,12 +58,8 @@
                     ]))
                     .then(function(response) {
                         var data = response.data.characters_friend_list[0].friend_list;
-                        return BaseSvc.data.getFactions().then(function(factionsData) {
-                            var factions = [];
-                            factions = factionsData;
-                            return BaseSvc.data.getTitles().then(function(titlesData) {
-                                var titles = [];
-                                titles = titlesData;
+                        return BaseSvc.data.getFactions().then(function(factions) {
+                            return BaseSvc.data.getTitles().then(function(titles) {
 
                                 var findFaction = function(i) {
                                     if (typeof data[i].faction_id !== 'undefined') {

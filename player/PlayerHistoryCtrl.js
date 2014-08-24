@@ -131,6 +131,9 @@
                             number: [{
                                 columnNum: 0,
                                 pattern: 'Day ##'
+                            }, {
+                                columnNum: 1,
+                                pattern: '##.##'
                             }]
                         });
                 },
@@ -162,6 +165,9 @@
                             number: [{
                                 columnNum: 0,
                                 pattern: 'Week ##'
+                            }, {
+                                columnNum: 1,
+                                pattern: '##.##'
                             }]
                         });
                 },
@@ -193,6 +199,9 @@
                             number: [{
                                 columnNum: 0,
                                 pattern: 'Month ##'
+                            }, {
+                                columnNum: 1,
+                                pattern: '##.##'
                             }]
                         });
                 },

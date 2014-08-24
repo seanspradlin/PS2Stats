@@ -13,6 +13,14 @@
                         order: 'name',
                         reverse: false
                     };
+
+                    //Pagination logic
+                    $scope.numberOfPages = function() {
+                        return Math.ceil(($scope.friends.length) / $scope.pageSize);
+                    };
+                    $scope.currentPage = 0;
+                    $scope.pageSize = 25;
+                    $scope.numberOfPages();
                 }, onError);
             };
 

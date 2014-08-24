@@ -87,7 +87,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="friend in friends | orderBy:friends.sort.order:friends.sort.reverse">
+                        <tr ng-repeat="friend in friends | orderBy:friends.sort.order:friends.sort.reverse | startFrom:currentPage*pageSize | limitTo:pageSize">
                             <td>
                                 <a ng-href="#/player/{{friend.name}}/" ng-bind-template="{{friend.title.name}} {{friend.name}}">
                             </td>
@@ -101,6 +101,13 @@
                     </tbody>
                 </table>
             </div>
+            <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                Previous
+            </button>
+            {{currentPage+1}}/{{numberOfPages()}}
+            <button ng-disabled="currentPage >= friends.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                Next
+            </button>
         </section>
 
         <!-- Killboard -->

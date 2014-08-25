@@ -23,7 +23,7 @@
                 alias = typeof alias !== 'undefined' ? alias : 'nuc';
                 alias = angular.lowercase(alias.replace(/\s+/g, ''));
                 return $http.jsonp(BaseSvc.urlBuilder.build('outfit', [
-                        'c:resolve=leader(name,battle_rank,faction_id),member_character(name,battle_rank,member_since_date,rank,title_id)',
+                        'c:resolve=leader(name,battle_rank,faction_id),member_character(name,battle_rank,member_since_date,rank,title_id,times)',
                         'alias_lower=' + alias
                     ]))
                     .then(function(response) {
@@ -70,7 +70,8 @@
                                         var member = {
                                             'name': typeof data.members[i].name !== 'undefined' ? data.members[i].name.first : '',
                                             'battle_rank': typeof data.members[i].battle_rank !== 'undefined' ? parseInt(data.members[i].battle_rank.value) : 0,
-                                            'joined': Date.parse(data.members[i].member_since_date),
+                                            'joined': new Date(0).setUTCSeconds(data.members[i].member_since),
+                                            'lastLogin': new Date(0).setUTCSeconds(data.members[i].times.last_login),
                                             'rank': {
                                                 'name': data.members[i].rank,
                                                 'id': parseInt(data.members[i].rank_ordinal)

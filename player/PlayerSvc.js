@@ -35,10 +35,10 @@
                                 'name': data.outfit.details.name,
                                 'tag': data.outfit.details.alias,
                                 'id': parseInt(data.outfit.outfit_id),
-                                'joined': data.outfit.member_since_date,
+                                'joined': new Date(0).setUTCSeconds(data.outfit.member_since),
                                 'rank': data.outfit.rank
                             } : {},
-                            'created': Date.parse(data.times.creation_date),
+                            'created': new Date(0).setUTCSeconds(data.times.creation),
                             'timePlayed': parseInt(data.times.minutes_played),
                             'title': typeof data.title !== 'undefined' ? data.title.name.en : '',
                             'world': {

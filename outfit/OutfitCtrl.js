@@ -6,7 +6,15 @@
             //Execute when outfit data received
             var onOutfitComplete = function(data) {
                 $scope.outfit = data;
-                $log.info(data);
+
+                //Get average BR
+                var sum = 0;
+                for (var i = 0; i <= $scope.outfit.members.length; i++) {
+                    if (typeof $scope.outfit.members[i] !== 'undefined') {
+                        sum += $scope.outfit.members[i].battle_rank;
+                    }
+                }
+                $scope.outfit.averageBR = sum / $scope.outfit.members.length;
             };
 
             var onError = function(reason) {

@@ -20,10 +20,11 @@
     <!-- Info Bar -->
     <hr>
     <div class="row">
-        <div class="col-md-3 text-center" ng-bind-template="Leader: {{outfit.leader}}"></div>
-        <div class="col-md-3 text-center" ng-bind-template="Members: {{outfit.members.length}}"></div>
-        <div class="col-md-3 text-center" ng-bind-template="Average BR: {{outfit.averageBR | number:1}}"></div>
-        <div class="col-md-3 text-center" ng-bind-template="Created: {{outfit.created | date:'mediumDate'}}"></div>
+        <div class="col-md-2 col-md-offset-1 text-center" ng-bind-template="Leader: {{outfit.leader}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Members: {{outfit.members.length}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Active: {{outfit.activeMembers}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Average BR: {{outfit.averageBR | number:1}}"></div>
+        <div class="col-md-2 text-center" ng-bind-template="Created: {{outfit.created | date:'mediumDate'}}"></div>
     </div>
     <hr>
 
@@ -39,6 +40,7 @@
 						<th>Outfit Rank</th>
 						<th>Battle Rank</th>
 						<th>Joined</th>
+						<th>Active</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,6 +52,7 @@
 						<td ng-bind="member.rank.name"></td>
 						<td ng-bind="member.battle_rank"></td>
 						<td ng-bind="member.joined | date:'mediumDate'"></td>
+						<td class="text-success"><i class="fa fa-check" ng-show="member.isActive"></i></td>
 					</tr>
 				</tbody>
 			</table>

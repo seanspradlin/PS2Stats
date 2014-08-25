@@ -71,14 +71,20 @@
                                             'name': typeof data.members[i].name !== 'undefined' ? data.members[i].name.first : '',
                                             'battle_rank': typeof data.members[i].battle_rank !== 'undefined' ? parseInt(data.members[i].battle_rank.value) : 0,
                                             'joined': new Date(0).setUTCSeconds(data.members[i].member_since),
-                                            'lastLogin': new Date(0).setUTCSeconds(data.members[i].times.last_login),
+                                            'lastLogin': typeof data.members[i].times !== 'undefined' ? new Date(0).setUTCSeconds(data.members[i].times.last_login) : new Date(0),
                                             'rank': {
                                                 'name': data.members[i].rank,
                                                 'id': parseInt(data.members[i].rank_ordinal)
                                             },
                                             'title': findTitle(i)
                                         };
+                                        member.isActive = member.lastLogin > new Date(new Date().setDate(new Date().getDate()-14)),
                                         outfit.members.push(member);
+                                    }
+                                    outfit.activeMembers = 0;
+                                    for (i = 0; i < outfit.members.length; i++)
+                                    {
+                                    	if (outfit.members[i].isActive) outfit.activeMembers++;
                                     }
                                     return outfit;
                                 });

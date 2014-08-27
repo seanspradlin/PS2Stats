@@ -28,7 +28,23 @@
     </div>
     <hr>
 
+    <!-- Main Content -->
     <div class="row">
+        <section id="filters" class="col-md-12">
+            <form name="parameters" role="refine">
+                <!-- Rank -->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="rank" class="label label-default">Rank</label>
+                        <select name="rank" id="faction" class="form-control" ng-model="rank" ng-options="rank.id as rank.name for rank in rankList | orderBy:'name'">
+                        </select>
+                    </div>
+                </div>
+                <!-- Active -->
+
+            </form>
+        </section>
+
         <!-- Roster -->
         <section id="roster" class="col-md-12">
             <div class="table-responsive">

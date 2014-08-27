@@ -23,7 +23,7 @@
                 alias = typeof alias !== 'undefined' ? alias : 'nuc';
                 alias = angular.lowercase(alias.replace(/\s+/g, ''));
                 return $http.jsonp(BaseSvc.urlBuilder.build('outfit', [
-                        'c:resolve=leader(name,battle_rank,faction_id),member_character(name,battle_rank,member_since_date,rank,title_id,times)',
+                        'c:resolve=rank,leader(name,battle_rank,faction_id),member_character(name,battle_rank,member_since_date,rank,title_id,times)',
                         'alias_lower=' + alias
                     ]))
                     .then(function(response) {
@@ -65,8 +65,18 @@
                                         'world': world
                                     };
 
+                                    outfit.ranks = [];
+                                    for (var i = 0; i < data.ranks.length; i++) {
+                                    	var rank = {
+                                    		'name': data.ranks[i].name,
+                                    		'description': data.ranks[i].description,
+                                    		'id': parseInt(data.ranks[i].ordinal)
+                                    	};
+                                    	outfit.ranks.push(rank);
+                                    }
+
                                     outfit.members = [];
-                                    for (var i = 0; i < data.members.length; i++) {
+                                    for (i = 0; i < data.members.length; i++) {
                                         var member = {
                                             'name': typeof data.members[i].name !== 'undefined' ? data.members[i].name.first : '',
                                             'battle_rank': typeof data.members[i].battle_rank !== 'undefined' ? parseInt(data.members[i].battle_rank.value) : 0,

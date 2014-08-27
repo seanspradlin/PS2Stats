@@ -1,8 +1,8 @@
 (function() {
     var app = angular.module('PS2Info');
 
-    var OutfitCtrl = ['$scope', '$log', '$routeParams', 'OutfitSvc', 'BaseSvc',
-        function($scope, $log, $routeParams, OutfitSvc, BaseSvc) {
+    var OutfitCtrl = ['$scope', '$log', '$routeParams', 'OutfitSvc',
+        function($scope, $log, $routeParams, OutfitSvc) {
             //Execute when outfit data received
             var onOutfitComplete = function(data) {
                 $scope.outfit = data;
@@ -15,6 +15,11 @@
                     }
                 }
                 $scope.outfit.averageBR = sum / $scope.outfit.members.length;
+                $scope.rankList = [{
+                    'name': '--Select Rank--',
+                    'id': -1
+                }]
+                    .concat($scope.outfit.ranks);
             };
 
             var onError = function(reason) {
@@ -34,6 +39,7 @@
                 'sortOrder': 'name',
                 'reverse': false
             };
+            $scope.rank = -1;
         }
     ];
     app.controller('OutfitCtrl', OutfitCtrl);

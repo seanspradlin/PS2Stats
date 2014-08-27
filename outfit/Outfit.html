@@ -31,32 +31,69 @@
     <div class="row">
         <!-- Roster -->
         <section id="roster" class="col-md-12">
-		<div class="table-responsive">
-			<table class="table table-hover table-striped">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Title</th>
-						<th>Outfit Rank</th>
-						<th>Battle Rank</th>
-						<th>Joined</th>
-						<th>Active</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="member in outfit.members | orderBy:'rank.id'">
-						<td>
-							<a ng-href="#/player/{{member.name}}" ng-bind="member.name"></a>
-						</td>
-						<td ng-bind="member.title"></td>
-						<td ng-bind="member.rank.name"></td>
-						<td ng-bind="member.battle_rank"></td>
-						<td ng-bind="member.joined | date:'mediumDate'"></td>
-						<td class="text-success"><i class="fa fa-check" ng-show="member.isActive"></i></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th ng-click="sort('memberList', 'name')">
+                                Name&nbsp;
+                                <span ng-show="memberList.sortOrder == 'name'">
+                                    <i class="fa fa-angle-up" ng-show="memberList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!memberList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('memberList', 'title')">
+                                Title&nbsp;
+                                <span ng-show="memberList.sortOrder == 'title'">
+                                    <i class="fa fa-angle-up" ng-show="memberList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!memberList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('memberList', 'rank.name')">
+                                Outfit Rank&nbsp;
+                                <span ng-show="memberList.sortOrder == 'rank.name'">
+                                    <i class="fa fa-angle-up" ng-show="memberList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!memberList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('memberList', 'battle_rank')">
+                                Battle Rank&nbsp;
+                                <span ng-show="memberList.sortOrder == 'battle_rank'">
+                                    <i class="fa fa-angle-up" ng-show="memberList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!memberList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('memberList', 'joined')">
+                                Joined&nbsp;
+                                <span ng-show="memberList.sortOrder == 'joined'">
+                                    <i class="fa fa-angle-up" ng-show="memberList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!memberList.reverse"></i>
+                                </span>
+                            </th>
+                            <th ng-click="sort('memberList', 'isActive')">
+                                Active&nbsp;
+                                <span ng-show="memberList.sortOrder == 'isActive'">
+                                    <i class="fa fa-angle-up" ng-show="memberList.reverse"></i>
+                                    <i class="fa fa-angle-down" ng-show="!memberList.reverse"></i>
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="member in filteredMembers = (outfit.members | orderBy:memberList.sortOrder:memberList.reverse)">
+                            <td>
+                                <a ng-href="#/player/{{member.name}}" ng-bind="member.name"></a>
+                            </td>
+                            <td ng-bind="member.title"></td>
+                            <td ng-bind="member.rank.name"></td>
+                            <td ng-bind="member.battle_rank"></td>
+                            <td ng-bind="member.joined | date:'mediumDate'"></td>
+                            <td class="text-success"><i class="fa fa-check" ng-show="member.isActive"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </div>
 </div>

@@ -76,7 +76,7 @@
                 },
 
                 //Define types of operations
-                operations: {
+                'operations': {
                     'addition': function(x, y) {
                         return x + y;
                     },
@@ -92,12 +92,12 @@
                 },
 
                 //Execute calculation
-                calculate: function(x, y, operation) {
+                'calculate': function(x, y, operation) {
                     return this.operations[operation](x, y);
                 },
 
                 //Add commas to numbers
-                addCommas: function(nStr) {
+                'addCommas': function(nStr) {
                     nStr += '';
                     var x = nStr.split('.');
                     var x1 = x[0];

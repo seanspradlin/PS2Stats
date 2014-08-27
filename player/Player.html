@@ -27,7 +27,10 @@
     <!-- Info Bar -->
     <hr>
     <div class="row">
-        <div class="col-md-2 text-center" ng-bind-template="{{player.outfit.rank}} of {{player.outfit.name}}" ng-show="player.outfit.name"></div>
+        <div class="col-md-2 text-center" ng-show="player.outfit.name">
+            <span ng-bind-template="{{player.outfit.rank}} of "></span>
+            <a ng-href="#/outfit/{{player.outfit.tag}}" ng-bind="player.outfit.name"></a>
+        </div>
         <div class="col-md-2" ng-show="!player.outfit.name"></div>
         <div class="col-md-2 text-center" ng-bind-template="Battle Rank: {{player.battle_rank}}"></div>
         <div class="col-md-2 text-center" ng-bind-template="Score/Hour: {{player.sph}}"></div>
@@ -114,16 +117,24 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <td>Killer</td>
-                            <td>Victim</td>
-                            <td>Weapon</td>
-                            <td>Vehicle</td>
+                            <th>Killer</th>
+                            <th>Victim</th>
+                            <th>Faction</th>
+                            <th>Weapon</th>
+                            <th>Vehicle</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="kill in killboard" ng-class="kill.color">
-                            <td ng-bind-template="{{kill.attacker.faction.tag}} {{kill.attacker.name}}"></td>
-                            <td ng-bind-template="{{kill.victim.faction.tag}} {{kill.victim.name}}"></td>
+                            <td>
+                                <a ng-href="#/player/{{kill.attacker.name}}" ng-bind="kill.attacker.name" ng-show="kill.isDeath"></a>
+                                <span ng-bind="kill.attacker.name" ng-show="!kill.isDeath"></span>
+                            </td>
+                            <td>
+                                <a ng-href="#/player/{{kill.victim.name}}" ng-bind="kill.victim.name" ng-show="!kill.isDeath"></a>
+                                <span ng-bind="kill.victim.name" ng-show="kill.isDeath"></span>
+                            </td>
+                            <td ng-bind="kill.victim.faction.name"></td>
                             <td ng-bind="kill.attacker.weapon"></td>
                             <td ng-bind="kill.attacker.vehicle"></td>
                         </tr>

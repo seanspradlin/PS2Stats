@@ -124,21 +124,21 @@
                         for (var i = 0; i < data.length; i++) {
                             var kill = {
                                 'attacker': {
-                                    'name': data[i].attacker.name.first,
+                                    'name': typeof data[i].attacker !== 'undefined' ? data[i].attacker.name.first : '',
                                     'faction': {
-                                        'name': data[i].attacker_loadout.faction.name.en,
-                                        'tag': data[i].attacker_loadout.faction.code_tag,
-                                        'id': parseInt(data[i].attacker_loadout.faction_id)
+                                        'name': typeof data[i].attacker_loadout !== 'undefined' ? data[i].attacker_loadout.faction.name.en : '',
+                                        'tag': typeof data[i].attacker_loadout !== 'undefined' ? data[i].attacker_loadout.faction.code_tag : '',
+                                        'id': typeof data[i].attacker_loadout !== 'undefined' ? parseInt(data[i].attacker_loadout.faction_id) : 0
                                     },
                                     'vehicle': typeof data[i].vehicle !== 'undefined' ? data[i].vehicle.name.en : '',
                                     'weapon': typeof data[i].weapon !== 'undefined' ? data[i].weapon.name.en : ''
                                 },
                                 'victim': {
-                                    'name': data[i].character.name.first,
+                                    'name': typeof data[i].character !== 'undefined' ? data[i].character.name.first : '',
                                     'faction': {
-                                        'name': data[i].character_loadout.faction.name.en,
-                                        'tag': data[i].character_loadout.faction.code_tag,
-                                        'id': parseInt(data[i].character_loadout.faction_id)
+                                        'name': typeof data[i].character_loadout !== 'undefined' ? data[i].character_loadout.faction.name.en : '',
+                                        'tag': typeof data[i].character_loadout !== 'undefined' ? data[i].character_loadout.faction.code_tag : '',
+                                        'id': typeof data[i].character_loadout !== 'undefined' ? parseInt(data[i].character_loadout.faction_id) : 0
                                     }
                                 },
                                 'isHeadshot': parseInt(data[i].is_headshot),

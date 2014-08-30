@@ -32,16 +32,22 @@
     <div class="row">
         <section id="filters" class="col-md-12">
             <form name="parameters" role="refine">
-                <!-- Rank -->
                 <div class="col-md-3">
+
+                    <!-- Rank -->
                     <div class="form-group">
                         <label for="rank" class="label label-default">Rank</label>
                         <select name="rank" id="faction" class="form-control" ng-model="rank" ng-options="rank.id as rank.name for rank in rankList | orderBy:'name'">
                         </select>
                     </div>
-                </div>
-                <!-- Active -->
 
+                    <!-- Active -->
+                    <div class="checkbox">
+                        <label>
+                            <input ng-model="showActive" type="checkbox">Only show active members
+                        </label>
+                    </div>
+                </div>
             </form>
         </section>
 
@@ -96,7 +102,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="member in filteredMembers = (outfit.members | orderBy:memberList.sortOrder:memberList.reverse)">
+                        <tr ng-repeat="member in filteredMembers = (outfit.members | orderBy:memberList.sortOrder:memberList.reverse | OutfitFilter:rank:showActive)">
                             <td>
                                 <a ng-href="#/player/{{member.name}}" ng-bind="member.name"></a>
                             </td>
@@ -108,6 +114,14 @@
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr class="info">
+                            <td colspan="6">
+                                Displaying&nbsp;
+                                <span ng-bind="filteredMembers.length"></span>&nbsp;results.
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </section>

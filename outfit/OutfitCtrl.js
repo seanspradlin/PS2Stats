@@ -40,6 +40,7 @@
                 'reverse': false
             };
             $scope.rank = -1;
+            $scope.showActive = true;
         }
     ];
     app.controller('OutfitCtrl', OutfitCtrl);

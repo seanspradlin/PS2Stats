@@ -187,7 +187,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in filteredPlayers = (players | orderBy:playerList.sortOrder:playerList.reverse | SearchFilter:server:faction:minLevel:maxLevel)">
+                        <tr ng-repeat="player in filteredPlayers = (players | orderBy:playerList.sortOrder:playerList.reverse | SearchFilter:server:faction:minLevel:maxLevel) | startFrom:(playerCurrentPage-1)*playerPageSize | limitTo:playerPageSize">
                             <td>
                                 <a ng-href="#/player/{{player.name}}" ng-bind="player.name"></a>
                             </td>
@@ -214,6 +214,7 @@
                     </tfoot>
                 </table>
             </div>
+            <pagination ng-show="filteredPlayers.length > playerPageSize" total-items="filteredPlayers.length" items-per-page="playerPageSize" ng-model="playerCurrentPage" class="pagination-sm"></pagination>
             <p ng-show="players.length == 0">No results found.</p>
         </div>
     </div>

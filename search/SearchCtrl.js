@@ -8,6 +8,8 @@
             //Execute when player data received
             var onPlayersComplete = function(data) {
                 $scope.players = data;
+                $scope.playerCurrentPage = 1;
+                $scope.playerPageSize = 25;
             };
 
             //Execute when outfit data received

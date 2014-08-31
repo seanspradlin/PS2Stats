@@ -37,14 +37,14 @@
                     <!-- Rank -->
                     <div class="form-group">
                         <label for="rank" class="label label-default">Rank</label>
-                        <select name="rank" id="faction" class="form-control" ng-model="rank" ng-options="rank.id as rank.name for rank in rankList | orderBy:'name'">
+                        <select name="rank" id="faction" class="form-control" ng-model="rank" ng-options="rank.id as rank.name for rank in rankList | orderBy:'name'" ng-change="currentPage = 1">
                         </select>
                     </div>
 
                     <!-- Active -->
                     <div class="checkbox">
                         <label>
-                            <input ng-model="showActive" type="checkbox">Only show active members
+                            <input ng-model="showActive" type="checkbox" ng-change="currentPage = 1">Only show active members
                         </label>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="member in filteredMembers = (outfit.members | orderBy:memberList.sortOrder:memberList.reverse | OutfitFilter:rank:showActive)">
+                        <tr ng-repeat="member in filteredMembers = (outfit.members | orderBy:memberList.sortOrder:memberList.reverse | OutfitFilter:rank:showActive) | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
                             <td>
                                 <a ng-href="#/player/{{member.name}}" ng-bind="member.name"></a>
                             </td>
@@ -124,6 +124,7 @@
                     </tfoot>
                 </table>
             </div>
+            <pagination ng-show="filteredMembers.length > pageSize" total-items="filteredMembers.length" items-per-page="pageSize" ng-model="currentPage" class="pagination-sm"></pagination>
         </section>
     </div>
 </div>

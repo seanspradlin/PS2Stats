@@ -67,12 +67,12 @@
 
                                     outfit.ranks = [];
                                     for (var i = 0; i < data.ranks.length; i++) {
-                                    	var rank = {
-                                    		'name': data.ranks[i].name,
-                                    		'description': data.ranks[i].description,
-                                    		'id': parseInt(data.ranks[i].ordinal)
-                                    	};
-                                    	outfit.ranks.push(rank);
+                                        var rank = {
+                                            'name': data.ranks[i].name,
+                                            'description': data.ranks[i].description,
+                                            'id': parseInt(data.ranks[i].ordinal)
+                                        };
+                                        outfit.ranks.push(rank);
                                     }
 
                                     outfit.members = [];
@@ -88,13 +88,12 @@
                                             },
                                             'title': findTitle(i)
                                         };
-                                        member.isActive = member.lastLogin > new Date(new Date().setDate(new Date().getDate()-14)),
+                                        member.isActive = member.lastLogin > new Date(new Date().setDate(new Date().getDate() - 14)),
                                         outfit.members.push(member);
                                     }
                                     outfit.activeMembers = 0;
-                                    for (i = 0; i < outfit.members.length; i++)
-                                    {
-                                    	if (outfit.members[i].isActive) outfit.activeMembers++;
+                                    for (i = 0; i < outfit.members.length; i++) {
+                                        if (outfit.members[i].isActive) outfit.activeMembers++;
                                     }
                                     return outfit;
                                 });

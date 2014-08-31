@@ -20,6 +20,9 @@
                     'id': -1
                 }]
                     .concat($scope.outfit.ranks);
+                $scope.currentPage = 1;
+                $scope.pageSize = 25;
+                $scope.numberOfPages = Math.ceil($scope.filteredMembers.length / $scope.pageSize);
             };
 
             var onError = function(reason) {

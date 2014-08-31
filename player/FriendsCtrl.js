@@ -17,7 +17,7 @@
                     //Pagination logic
                     $scope.currentPage = 1;
                     $scope.pageSize = 25;
-                    $scope.numberOfPages = Math.ceil(($scope.friends.length) / $scope.pageSize);
+                    $scope.numberOfPages = Math.ceil($scope.friends.length / $scope.pageSize);
                 }, onError);
             };
 

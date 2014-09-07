@@ -56,7 +56,7 @@
                                     var outfit = {
                                         'name': data.name,
                                         'alias': data.alias,
-                                        'created': Date.parse(data.time_created_date),
+                                        'created': new Date(0).setUTCSeconds(data.time_created),
                                         'leader': data.leader.name.first,
                                         'faction': {
                                             'name': findFaction(),

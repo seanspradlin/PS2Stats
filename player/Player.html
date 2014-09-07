@@ -37,8 +37,8 @@
         <div class="col-md-2 text-center" ng-bind-template="Kill/Death Ratio: {{player.kdr}}"></div>
         <div class="col-md-2 text-center" ng-bind-template="Created: {{player.created | date:'mediumDate'}}"></div>
         <div class="col-md-2 text-center">Status:
-            <span class="text-danger" ng-show="player.isOnline === 0">Offline</span>
-            <span class="text-success" ng-show="player.isOnline === 1">Online</span>
+            <span class="text-danger" ng-show="!player.isOnline">Offline</span>
+            <span class="text-success" ng-show="player.isOnline">Online</span>
         </div>
     </div>
     <hr>

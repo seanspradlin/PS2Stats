@@ -5,8 +5,8 @@
         function($routeProvider) {
             $routeProvider
                 .when('/', {
-                    'templateUrl': 'main/Main.html',
-                    'controller': 'MainCtrl'
+                    'templateUrl': 'leaderboards/Leaderboards.html',
+                    'controller': 'LeaderboardsCtrl'
                 })
                 .when('/search/:searchterm', {
                     'templateUrl': 'search/Search.html',

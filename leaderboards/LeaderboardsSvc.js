@@ -6,12 +6,12 @@
                 var filters = [
                     'name=' + stat,
                     'period=' + period,
-                    'c:resolve=character,charactes_stat_history(all_time,stat_name),world',
+                    'c:resolve=character,characters_stat_history(all_time,stat_name),world',
                     'c:start=' + start,
                     'c:limit=' + limit
                 ];
                 if (world > 0) {
-                    filters.concat('world=' + world);
+                    filters.push('world=' + world);
                 }
                 return $http.jsonp(BaseSvc.urlBuilder.build('leaderboard', filters))
                     .then(function(response) {
@@ -71,7 +71,7 @@
                                                 'id': parseInt(data[i].world_id)
                                             },
                                             'title': findTitle(i),
-                                            'ranking': parseInt(data[i].rank),
+                                            'ranking': parseInt(data[i].rank) + 1,
                                             'created': typeof data[i].times !== 'undefined' ? new Date(0).setUTCSeconds(data[i].times.creation) : new Date(),
                                             'last_login': typeof data[i].times !== 'undefined' ? new Date(0).setUTCSeconds(data[i].times.last_login) : new Date(),
                                             'value': parseInt(data[i].value),

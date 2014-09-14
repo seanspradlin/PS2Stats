@@ -1,0 +1,111 @@
+<!-- Loader -->
+<div class="container-fluid" ng-show="!leaderboard && !error">
+    <div class="col-md-12">
+        <p>Loading...</p>
+    </div>
+</div>
+
+<!-- Error -->
+<div class="container-fluid" ng-show="error">
+    <div class="col-md-12">
+        <p class="text-danger">Error loading player data!</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container-fluid" ng-show="leaderboard && !error">
+    <!-- Header -->
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Leaderboards</h1>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <form name="parameters" class="form-horizontal">
+            <!-- Stat -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="paramStat" class="control-label col-md-3">Stat</label>
+                    <div class="col-md-9">
+                        <select name="stat" id="paramStat" class="form-control" ng-model="stat" ng-options="stat for stat in statValues" ng-change="search()"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Period -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="paramPeriod" class="control-label col-md-3">Period</label>
+                    <div class="col-md-9">
+                        <select name="period" id="paramPeriod" class="form-control" ng-model="period" ng-options="period for period in periodValues" ng-change="search()"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Server -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="paramServer" class="control-label col-md-3">Server</label>
+                    <div class="col-md-9">
+                        <select name="server" id="paramServer" class="form-control" ng-model="world" ng-options="server.id as server.name for server in servers | orderBy:'name'" ng-change="search()"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="paramResults" class="control-label col-md-3">Results</label>
+                    <div class="col-md-9">
+                        <select name="results" id="paramResults" class="form-control" ng-model="limit" ng-options="limit for limit in limitValues" ng-change="search()"></select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+    	<!-- Previous -->
+		<div class="col-md-6 text-left">
+			<button class="btn btn-primary btn-sm" ng-disabled="start < limit" ng-click="previous()">Previous</button>
+		</div>
+
+    	<!-- Next -->
+    	<div class="col-md-6 text-right">
+    		<button class="btn btn-primary btn-sm" ng-click="next()">Next</button>
+    	</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th ng-bind="stat"></th>
+                            <th>Faction</th>
+                            <th>Battle Rank</th>
+                            <th>Server</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="player in leaderboard">
+                            <td ng-bind="player.ranking"></td>
+                            <td>
+                                <a ng-href="#/player/{{player.name}}" ng-bind="player.name"></a>
+                            </td>
+                            <td ng-bind="player.value"></td>
+                            <td ng-bind="player.faction.name"></td>
+                            <td ng-bind="player.battle_rank"></td>
+                            <td ng-bind="player.world.name"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

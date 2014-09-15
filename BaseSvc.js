@@ -2,6 +2,7 @@
     var BaseSvc = ['$log', '$http',
         function($log, $http) {
 
+            //TODO Caching does not currently work with jsonp and is a known issue. Make an alternative until fixed
             var data = {
                 'getFactions': function() {
                     return $http.jsonp(urlBuilder.build('faction', [
@@ -9,7 +10,7 @@
                             'user_selectable=1',
                             'c:lang=en',
                             'c:hide=image_id,image_path,image_set_id'
-                        ]))
+                        ]), { 'cache': true })
                         .then(function(response) {
                             var data = response.data.faction_list;
                             var factions = [];
@@ -29,7 +30,7 @@
                             'c:limit=20',
                             'c:lang=en',
                             'state=online'
-                        ]))
+                        ]), { 'cache': true })
                         .then(function(response) {
                             var data = response.data.world_list;
                             var servers = [];
@@ -47,7 +48,7 @@
                     return $http.jsonp(urlBuilder.build('title', [
                             'c:limit=200',
                             'c:lang=en'
-                        ]))
+                        ]), { 'cache': true })
                         .then(function(response) {
                             var data = response.data.title_list;
                             var titles = [];

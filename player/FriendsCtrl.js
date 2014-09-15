@@ -16,7 +16,7 @@
 
                     //Pagination logic
                     $scope.currentPage = 1;
-                    $scope.pageSize = 20;
+                    $scope.pageSize = 25;
                 }, onError);
             };
 

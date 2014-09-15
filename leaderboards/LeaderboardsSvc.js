@@ -46,7 +46,7 @@
                                     };
                                     var getStatMaximums = function(i) {
                                         var max = {};
-                                        for (var x = 0; x < data[i].stats.stat_history; x++) {
+                                        for (var x = 0; x < data[i].stats.stat_history.length; x++) {
                                             max[data[i].stats.stat_history[x].stat_name] = parseInt(data[i].stats.stat_history[x].all_time);
                                         }
                                         return max;
@@ -74,7 +74,7 @@
                                             'ranking': parseInt(data[i].rank) + 1,
                                             'created': typeof data[i].times !== 'undefined' ? new Date(0).setUTCSeconds(data[i].times.creation) : new Date(),
                                             'last_login': typeof data[i].times !== 'undefined' ? new Date(0).setUTCSeconds(data[i].times.last_login) : new Date(),
-                                            'value': parseInt(data[i].value),
+                                            'value': stat.toLowerCase() == 'time' ? parseInt(data[i].value)/3600 : parseInt(data[i].value),
                                             'maximums': getStatMaximums(i)
                                         };
                                         filteredData.push(player);

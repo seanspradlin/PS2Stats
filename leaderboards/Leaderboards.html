@@ -87,6 +87,8 @@
                             <th>Rank</th>
                             <th>Name</th>
                             <th ng-bind="stat"></th>
+                            <th>Kills/Deaths</th>
+                            <th>Score/Hour</th>
                             <th>Faction</th>
                             <th>Battle Rank</th>
                             <th>Server</th>
@@ -98,7 +100,9 @@
                             <td>
                                 <a ng-href="#/player/{{player.name}}" ng-bind="player.name"></a>
                             </td>
-                            <td ng-bind="player.value"></td>
+                            <td ng-bind-template="{{player.value | number:0}}"></td>
+                            <td ng-bind-template="{{(player.maximums.kills/player.maximums.deaths) | number:2}}"></td>
+                            <td ng-bind-template="{{(player.maximums.score/(player.maximums.time/3600)) | number:0}}"></td>
                             <td ng-bind="player.faction.name"></td>
                             <td ng-bind="player.battle_rank"></td>
                             <td ng-bind="player.world.name"></td>

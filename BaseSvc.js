@@ -114,7 +114,7 @@
             /*      ()==[::::::::::::> URL BUILDER <::::::::::::]==()      */
 
             var urlBuilder = {
-                root: 'https://census.soe.com/s:responsiveps2/get/ps2:v2/',
+                root: 'https://census.daybreakgames.com/s:responsiveps2/get/ps2:v2/',
                 suffix: '?callback=JSON_CALLBACK',
 
                 //Build an API GET Request

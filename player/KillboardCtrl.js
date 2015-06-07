@@ -1,6 +1,4 @@
 (function() {
-    var app = angular.module('PS2Info');
-
     var KillboardCtrl = ['$scope', '$log', 'PlayerSvc',
         function($scope, $log, PlayerSvc) {
             //Load killboard
@@ -31,5 +29,7 @@
             $scope.killboardLength = 25;
         }
     ];
+    
+    var app = angular.module('PS2Info');
     app.controller('KillboardCtrl', KillboardCtrl);
 }());

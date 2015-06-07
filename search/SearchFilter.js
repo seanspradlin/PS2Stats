@@ -1,6 +1,4 @@
 (function() {
-    var app = angular.module('PS2Info');
-
     var SearchFilter = function() {
         return function(input, server, faction, minLevel, maxLevel) {
             minLevel = typeof minLevel !== 'undefined' ? minLevel : 1;
@@ -26,5 +24,7 @@
             return filtered;
         };
     };
+    
+    var app = angular.module('PS2Info');
     app.filter('SearchFilter', SearchFilter);
 }());

@@ -1,6 +1,4 @@
 (function() {
-	var app = angular.module('PS2Info');
-
 	var LeaderboardsCtrl = ['$scope', '$log', 'LeaderboardsSvc', 'BaseSvc',
 		function($scope, $log, LeaderboardsSvc, BaseSvc) {
 			var onLeaderboardComplete = function(response) {
@@ -45,5 +43,7 @@
 			$scope.search();
 		}
 	];
+	
+	var app = angular.module('PS2Info');
 	app.controller('LeaderboardsCtrl', LeaderboardsCtrl);
 }());

@@ -1,6 +1,4 @@
 (function() {
-    var app = angular.module('PS2Info');
-
     var OutfitCtrl = ['$scope', '$log', '$routeParams', 'OutfitSvc',
         function($scope, $log, $routeParams, OutfitSvc) {
             //Execute when outfit data received
@@ -45,5 +43,7 @@
             $scope.showActive = true;
         }
     ];
+    
+    var app = angular.module('PS2Info');
     app.controller('OutfitCtrl', OutfitCtrl);
 }());

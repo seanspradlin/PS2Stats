@@ -1,6 +1,4 @@
 (function() {
-    var app = angular.module('PS2Info');
-
     //Functionality for search box
     var SearchCtrl = ['$scope', '$routeParams', '$log', 'SearchSvc', 'BaseSvc',
         function($scope, $routeParams, $log, SearchSvc, BaseSvc) {
@@ -70,5 +68,7 @@
             $scope.maxLevel = 100;
         }
     ];
+    
+    var app = angular.module('PS2Info');
     app.controller('SearchCtrl', SearchCtrl);
 }());

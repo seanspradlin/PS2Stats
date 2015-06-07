@@ -1,6 +1,4 @@
 (function() {
-    var app = angular.module('PS2Info');
-
     var PlayerHistoryCtrl = ['$scope', '$log', 'PlayerSvc', 'BaseSvc',
         function($scope, $log, PlayerSvc, BaseSvc) {
             var generateCharts = {
@@ -546,5 +544,7 @@
             });
         }
     ];
+    
+    var app = angular.module('PS2Info');
     app.controller('PlayerHistoryCtrl', PlayerHistoryCtrl);
 }());

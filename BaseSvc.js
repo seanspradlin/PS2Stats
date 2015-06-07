@@ -211,6 +211,6 @@
         }
     ];
 
-    var module = angular.module('PS2Info');
-    module.factory('BaseSvc', BaseSvc);
+    var app = angular.module('PS2Info');
+    app.factory('BaseSvc', BaseSvc);
 }());

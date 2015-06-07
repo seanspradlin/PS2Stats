@@ -108,6 +108,6 @@
         }
     ];
 
-    var module = angular.module('PS2Info');
-    module.factory('OutfitSvc', OutfitSvc);
+    var app = angular.module('PS2Info');
+    app.service('OutfitSvc', OutfitSvc);
 }());

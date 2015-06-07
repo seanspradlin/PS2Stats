@@ -1,6 +1,4 @@
 (function() {
-    var app = angular.module('PS2Info');
-
     var FriendsCtrl = ['$scope', '$log', 'PlayerSvc',
         function($scope, $log, PlayerSvc) {
             //Load friends list
@@ -34,5 +32,7 @@
             });
         }
     ];
+    
+    var app = angular.module('PS2Info');
     app.controller('FriendsCtrl', FriendsCtrl);
 }());

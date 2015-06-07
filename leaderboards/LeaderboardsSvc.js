@@ -92,6 +92,6 @@
         }
     ];
 
-    var module = angular.module('PS2Info');
-    module.factory('LeaderboardsSvc', LeaderboardsSvc);
+    var app = angular.module('PS2Info');
+    app.service('LeaderboardsSvc', LeaderboardsSvc);
 }());

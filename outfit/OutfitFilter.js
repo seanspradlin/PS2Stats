@@ -1,6 +1,4 @@
 (function() {
-	var app = angular.module('PS2Info');
-
 	var OutfitFilter = function() {
 		return function(input, rank, showActive) {
 			rank = typeof rank !== 'undefined' ? rank : -1;
@@ -21,5 +19,7 @@
 			return filtered;
 		};
 	};
+	
+	var app = angular.module('PS2Info');
 	app.filter('OutfitFilter', OutfitFilter);
 }());

@@ -190,6 +190,6 @@
         }
     ];
 
-    var module = angular.module('PS2Info');
-    module.factory('PlayerSvc', PlayerSvc);
+    var app = angular.module('PS2Info');
+    app.service('PlayerSvc', PlayerSvc);
 }());
